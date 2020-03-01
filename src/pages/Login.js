@@ -63,11 +63,11 @@ function Login(props) {
    const [email,setEmail] = useState("");
    const [password, setPassword] = useState("");
    //const [loading, setLoading] = useState(false);
-   const [newerrors,setnewErrors] = useState({email: '', password: ''});
+   const [newerrors,setNewerrors] = useState({email: '', password: ''});
    const [newgeneral, setnewGeneral] = useState('');
     useEffect(()=>{
         if(errors.errors !== undefined){
-            setnewErrors(errors.errors);
+            setNewerrors(errors.errors);
             setnewGeneral('');
         }
     },[errors.errors]);
@@ -75,7 +75,7 @@ function Login(props) {
 
     if(general.general !== undefined){
         setnewGeneral(general.general);
-        setnewErrors({email: '', password: ''});
+        setNewerrors({email: '', password: ''});
     }
     },[general.general]);
    

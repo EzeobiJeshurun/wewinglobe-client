@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Posts from '../components/Posts';
+import Profile   from '../components/Profile';
 
 
 
@@ -27,8 +28,8 @@ let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.we
                 {recentScreamsMarkup}
             </Grid>
             <Grid item sm={4} xs={12}>
-                <p>profile....</p>
-            </Grid>
+                <Profile />
+        </Grid>
         </Grid>
     )
 }

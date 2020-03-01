@@ -14,10 +14,13 @@ import ChangePassword from './pages/ChangePassword';
 //components
 import Navbar from './components/Navbar';
 import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 import { typography } from '@material-ui/system';
 //Redux 
 import {Provider} from 'react-redux';
 import store from './redux/store';
+import {SET_AUTHENTICATED} from './redux/types';
+import {logoutUser, getUserData} from './redux/actions/userActions';
 
 const theme1 = createMuiTheme({
   palette:{
@@ -61,18 +64,21 @@ const theme1 = createMuiTheme({
 });
 
 //Checkes if user is logged in.
-let authenticated;
+
 const token = localStorage.getItem('FBIdToken');
 console.log(`this is the token ${token}`);
 if(token){
   const decodedToken = jwtDecode(token);
-  console.log(decodedToken);
+  
 
   if(decodedToken.exp * 1000 < Date.now()){
+    store.dispatch(logoutUser());
     //window.location.href = '/login';
-    authenticated = false;
+    
   }else{
-    authenticated = true;
+    store.dispatch(SET_AUTHENTICATED);
+    store.dispatch(getUserData());
+    axios.defaults.headers.common['Authorization'] = token;
   }
 }
 
@@ -113,8 +119,8 @@ const myTheme =()=>{
         <div className="container">
         <Switch>
           <Route exact path="/" component={Home} />
-          <AuthRoute exact path="/login" component={Login} authenticated={authenticated}/>
-          <AuthRoute exact path="/signup" component={Signup} authenticated={authenticated}/>
+          <AuthRoute exact path="/login" component={Login} />
+          <AuthRoute exact path="/signup" component={Signup} />
           <Route exact path="/changePassword" component={ChangePassword}/>
         </Switch>
         </div>
