@@ -13,7 +13,11 @@ const useStyles = makeStyles(theme=>({
     card:{
         display: 'flex',
         marginBottom: 20,
-        //flexWrap: 'wrap'
+        
+         [theme.breakpoints.down('xs')] : {
+             flexDirection: 'column',
+             //flexWrap: 'wrap'
+         }
     },
     content:{
         padding: 25,
@@ -21,8 +25,8 @@ const useStyles = makeStyles(theme=>({
     },
     image: {
         minWidth: 300,
-        //minHeight: 300,
-        objectFit: "cover"
+        minHeight: 300,
+        //objectFit: "cover"
 
     }
 

@@ -26,10 +26,15 @@ const useStyles = makeStyles(theme =>({
         margin: '20px auto 20px auto'
     },
     textField: {
-        margin: '2px auto 2px auto'
+        margin: '2px auto 2px auto',
+        width: '100%',
+        [theme.breakpoints.down('xs')]:{
+            width: '80%'
+        }
     },
     loginTitle:{
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
+       
     },
     submitButton:{
         margin: '30px',
@@ -43,7 +48,7 @@ const useStyles = makeStyles(theme =>({
     },
     forgotPassword: {
         color: theme.palette.primary.dark,
-        marginTop: '4px'
+        marginTop: '6px'
     },
     createAccount:{
         color: theme.palette.primary.main,
@@ -134,12 +139,13 @@ function Login(props) {
         <TextField id="email" name="email" value={email} type="email" label="Email" onChange={(event)=>{
             setEmail(event.target.value)
         }} className={classes.textField} helperText={newerrors.email} 
-        error={newerrors.email ? true: false } fullWidth ></TextField>
+        error={newerrors.email ? true: false }  ></TextField>
          <TextField id="password" name="password" value={password} type="password" label="Password" onChange={(event)=>{
             setPassword(event.target.value)
         }} className={classes.textField} 
         helperText={newerrors.password} 
-        error={newerrors.password ? true: false } fullWidth></TextField>
+        error={newerrors.password ? true: false } ></TextField>
+        <br/>
        <Typography variant="body2" className={classes.forgotPassword} component={Link} to='/ChangePassword'>forgot password?</Typography>
        <br/>
         <Button type="submit" className={classes.submitButton} variant="contained" color="primary" disabled={loading}>login
