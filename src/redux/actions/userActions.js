@@ -68,12 +68,15 @@ export const signupUser =(newUserData, history)=>(dispatch)=>{
 
 export const getUserData=()=>(dispatch)=>{
     dispatch({type: LOADING_USER});
+    const FBIdToken = localStorage.getItem('FBIdToken');
+    axios.defaults.headers.common['Authorization'] = FBIdToken;
+
     axios.get('/user')
     .then((res)=>{
-        dispatch({
-            type: SET_USER,
-            payload: res.data
-        });
+    dispatch({
+        type: SET_USER,
+        payload: res.data
+    });
     })
     .catch(err=>{
         console.log(err);
@@ -85,6 +88,7 @@ export const logoutUser =()=>(dispatch)=>{
     delete axios.defaults.headers.common['Authorization'];
     dispatch({type: SET_UNAUTHENTICATED });
 };
+
 const setAuthorizationHeader =(token)=>{
     const FBIdToken = `Bearer ${token}`;
         

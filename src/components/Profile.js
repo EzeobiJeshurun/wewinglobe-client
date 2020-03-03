@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 //Material UI 
 import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core';
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme=>({
             }
         }
     },
-    button:{
+    buttons:{
         textAlign: 'center',
         '& a':{
             margin: '20px 10px'
@@ -62,13 +63,13 @@ const useStyles = makeStyles(theme=>({
 
 function Profile(props) {
     const classes = useStyles();
-    const {user :{ credentials: {handle, createdAt, imageUrl,bio, website, location}, loading}} = props;
+    const {user :{ credentials: {handle, createdAt, imageUrl,bio, website, location}, loading , authenticated}} = props;
 
     let profileMarkup = !loading? (authenticated ?(
             <Paper className ={classes.paper} >
                 <div className={classes.profile}>
                         <div className='profile-image'>
-                            <img src={imageUrl} alt="profile"/>
+                            <img src={imageUrl} alt="profile" className="profile-image"/>
                         </div>
                         <hr/>
                         <div className="profile-detail">
@@ -88,14 +89,30 @@ function Profile(props) {
                    <Fragment>
                        <LinkIcon color="primary" />
                        <a href={website} target="_blank" rel="noopener noreferrer">
-                           {}
+                           {' '}{website}
                        </a>
+                       <hr/>
+                   </Fragment>}
+                    <Fragment>
+                   <CalendarToday color="primary" /> {' '}
+                   <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
                    </Fragment>
-                }          
+                        
                 </div>
                 </div>
             </Paper>
-        ):(<div>To be replaced</div>)): (<p>loading</p>)
+        ):(<Paper className={classes.paper}>
+            <Typography variant='body2' align="center">Login to view profile</Typography>
+            <div className={classes.buttons}>
+                <Button color="primary" variant="contained" component ={Link} to='/login'>
+                    Login
+                </Button>
+                <Button color="secondary" variant="contained" component ={Link} to='/signup'>
+                    Signup
+                </Button>
+            </div>
+        </Paper>
+    )): (<p>loading</p>)
     
 
     return profileMarkup;
@@ -107,9 +124,9 @@ const mapStateToProps=(state)=>({
     user : state.user
 });
 
-Profile.propTypes = {
-    user: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
-};
-
+//Profile.propTypes = {
+  //  user: PropTypes.object.isRequired,
+   // classes: PropTypes.object.isRequired
+//};
+//
 export default  connect(mapStateToProps)(Profile);
