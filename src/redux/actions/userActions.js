@@ -1,4 +1,5 @@
-import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SIGNUP_ERRORS, SET_AUTHENTICATED,SET_UNAUTHENTICATED, LOADING_USER} from '../types';
+import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SIGNUP_ERRORS, RESET_P,RESET_ERROR, LOADING_EUI,
+    SET_AUTHENTICATED,SET_UNAUTHENTICATED, LOADING_USER} from '../types';
 import axios from 'axios';
 
 export const loginUser =(userData, history)=>(dispatch)=>{
@@ -96,3 +97,39 @@ const setAuthorizationHeader =(token)=>{
           axios.defaults.headers.common['Authorization'] = FBIdToken;
 
 };
+
+export const resetP = (userEmail)=>(dispatch)=>{
+    dispatch({type: LOADING_EUI});
+    if(isEmail(userEmail)){
+        axios.post('/user/reset', {email: userEmail})
+    .then((res)=>{
+        dispatch({
+            type: RESET_P,
+            payload: res.data
+        });
+    })
+    .catch((err)=>{
+        dispatch({
+            type: RESET_ERROR,
+            payload: err.response.data
+        });
+        console.log('error in axios');
+    });
+    }else{
+        dispatch({
+            type: RESET_ERROR,
+            payload: {error: "Please enter a valid email"}
+        });
+        console.log('axios did not run check email');
+    }
+
+    
+};
+const isEmail = (email)=>{
+    const regularExpression = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/ ;
+        if(email.match(regularExpression)) return true;
+        else return false;
+ };
+ 
+
+

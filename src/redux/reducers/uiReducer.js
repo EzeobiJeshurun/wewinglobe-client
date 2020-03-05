@@ -1,12 +1,15 @@
 
-import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS, SIGNUP_ERRORS} from '../types';
+import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS, SIGNUP_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P} from '../types';
 
 const initialState = {
     loading: false,
     errors: {errors: {email: '', password: ''}},
     general: {general: ''},
     handleinUse: {handle: ''},
-    emailinUse: {email: ''}
+    emailinUse: {email: ''},
+    reset: {message: ""},
+    resetE: {error: ""},
+    loadingR: false
 };
 
 export default function(state=initialState,action){
@@ -40,6 +43,24 @@ export default function(state=initialState,action){
                 ...state,
                 loading: true
             };
+        case RESET_P:
+            return {
+                ...state,
+                reset: action.payload,
+                loadingR: false
+            };  
+        case RESET_ERROR: 
+            return {
+                ...state,
+                resetE: action.payload,
+                loadingR: false
+            };
+        
+        case LOADING_EUI:
+            return {
+                ...state,
+                loadingR: true
+            };    
                 
         default:
             return state;

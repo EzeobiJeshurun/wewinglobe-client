@@ -35,6 +35,9 @@ const theme1 = createMuiTheme({
           main: '#ffee58',
           dark: '#b2a63d',
           contrastText: '#000'
+      },
+      myextra:{
+        main: 'rgb(231, 243, 243)'
       }
   },
   typography: {
@@ -55,7 +58,10 @@ const theme1 = createMuiTheme({
             main : '#f50057',
             dark : '#ab003c',
             contrastText: '#fff'
-    }
+    },
+        myextra:{
+          main: 'rgb(231, 243, 243)'
+        }
 },
 
   typography: {
@@ -114,7 +120,7 @@ const myTheme =()=>{
   return (
     <MuiThemeProvider theme= {theme}>
      <Provider store={store}> 
-    <div className="App">
+    <div className="App" >
       <Router>
       <Navbar myTheme={myTheme} setThemecontroller={setThemecontroller} themecontroller={themecontroller}/>
         <div className="container">

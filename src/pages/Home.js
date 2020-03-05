@@ -13,11 +13,16 @@ import {makeStyles} from '@material-ui/core';
 const useStyles = makeStyles(theme=>({
     root: {
         display: 'flex',
+        
+        height: '100vh',
+        margin: 0,
+        background: theme.palette.myextra.main,
         flexDirection: 'row-reverse',
         [theme.breakpoints.down('xs')]:{
            flexDirection: 'row'
         }
     }
+
 }));
 
 function Home() {

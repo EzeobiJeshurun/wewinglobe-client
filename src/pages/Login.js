@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme =>({
     },
     submitButton:{
         margin: '30px',
-        positio: 'relative'
+        position: 'relative'
         
     },
     customError: {
