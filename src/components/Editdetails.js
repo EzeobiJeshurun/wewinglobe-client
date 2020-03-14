@@ -27,7 +27,11 @@ function Editdetails(props) {
     const [newlocation, setNewlocation] = useState('');
     const [open, setOpen] = useState(false);
     const handleSubmit=()=>{
-
+        const userDetails ={
+            bio: newbio,
+            website: newwebsite,
+            location: newlocation
+        }
     };
 
     const handleOpen= ()=>{
