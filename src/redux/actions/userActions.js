@@ -98,6 +98,17 @@ const setAuthorizationHeader =(token)=>{
 
 };
 
+export const uploadImage =(formData)=>(dispatch)=>{
+    dispatch({ type: LOADING_USER});
+    axios.post('/user/image', formData)
+    .then((res)=>{
+        dispatch(getUserData());
+    })
+    .catch((err)=>{
+        console.log(err);
+    });
+};
+
 export const resetP = (userEmail)=>(dispatch)=>{
     dispatch({type: LOADING_EUI});
     if(isEmail(userEmail)){

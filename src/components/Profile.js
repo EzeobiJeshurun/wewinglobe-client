@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import {logoutUser, uploadImage} from '../redux/actions/userActions';
 //Material UI 
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
@@ -14,7 +15,8 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/EditIcon';
+import EditIcon from '@material-ui/icons/Edit';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 const useStyles = makeStyles(theme=>({
     paper: {
@@ -66,8 +68,15 @@ const useStyles = makeStyles(theme=>({
 }));
 
 function Profile(props) {
+    const handleLogout =()=>{
+        props.logoutUser();
+    };
     const handleImageChange=(event)=>{
         const image = event.target.files[0];
+        //send our image to the server
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        props.uploadImage(formData);
 
     };
     const handleEditPicture=()=>{
@@ -81,13 +90,14 @@ function Profile(props) {
             <Paper className ={classes.paper} >
                 <div className={classes.profile}>
                         <div className='image-wrapper'>
-                            <img src={imageUrl} alt="profile" hidden="hidden" className="profile-image"/>
-                            <input type="file" id='imageInput' onChange={(event)=>{
+                            <img src={imageUrl} alt="profile"  className="profile-image"/>
+                            <input type="file" id='imageInput'  hidden="hidden" onChange={(event)=>{
                                 handleImageChange(event);
                             }}/>
                             <Tooltip title="Edit profile Image" placement="top">
                             <IconButton onClick={()=>{
                                 handleEditPicture();
+
                              }}  className="button">
                                  <EditIcon color="primary"/>
                             </IconButton>
@@ -122,6 +132,13 @@ function Profile(props) {
                    </Fragment>
                         
                 </div>
+                <Tooltip title="logout" placement="top">
+                    <IconButton onClick={()=>{
+                        handleLogout();
+                    }}>
+                        <KeyboardReturn />
+                    </IconButton>
+                </Tooltip>
                 </div>
             </Paper>
         ):(<Paper className={classes.paper}>
@@ -146,10 +163,15 @@ function Profile(props) {
 const mapStateToProps=(state)=>({
     user : state.user
 });
+const mapActionsToProps= {
+
+    logoutUser,
+    uploadImage
+};
 
 //Profile.propTypes = {
   //  user: PropTypes.object.isRequired,
    // classes: PropTypes.object.isRequired
 //};
 //
-export default  connect(mapStateToProps)(Profile);
+export default  connect(mapStateToProps,mapActionsToProps)(Profile);
