@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {logoutUser, uploadImage} from '../redux/actions/userActions';
+import Editdetails from './Editdetails';
 //Material UI 
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
@@ -139,6 +140,7 @@ function Profile(props) {
                         <KeyboardReturn />
                     </IconButton>
                 </Tooltip>
+                <Editdetails/>
                 </div>
             </Paper>
         ):(<Paper className={classes.paper}>
