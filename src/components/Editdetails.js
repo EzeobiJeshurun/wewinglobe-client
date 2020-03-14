@@ -8,6 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from '@material-ui/icons/Edit';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 ///Redux 
 import {connect} from 'react-redux';
 import {editUserDetails} from '../redux/actions/userActions';
@@ -16,31 +18,92 @@ const useStyles = (theme=>({
 
 }));
 
+
+
 function Editdetails(props) {
     const {credentials} = props
     const [newbio, setNewbio] = useState('');
     const [newwebsite, setNewwebsite] = useState('');
     const [newlocation, setNewlocation] = useState('');
     const [open, setOpen] = useState(false);
+    const handleSubmit=()=>{
 
+    };
+
+    const handleOpen= ()=>{
+        setOpen(true);
+        mapUserDetailsToState(credentials);
+    };
+    const mapUserDetailsToState =(credintials)=>{
+        if(credentials.bio){
+            setNewbio(credentials.bio);
+          }  
+          if(credentials.website){
+            setNewwebsite(credentials.website);
+          }  
+          if(credentials.location){
+            setNewlocation(credentials.location);
+          }  
+    };
+    const handleClose= ()=>{
+        setOpen(false);
+    };
     useEffect(()=>{
-      if(credentials.bio){
-        setNewbio(credentials.bio);
-      }  
-      if(credentials.website){
-        setNewwebsite(credentials.website);
-      }  
-      if(credentials.location){
-        setNewlocation(credentials.location);
-      }  
+     
+        mapUserDetailsToState(credentials);
 
 
-
-    },[credentials.location,credentials.bio,credentials.website]);
+    },[credentials, mapUserDetailsToState]);
     const classes = useStyles();
     return (
         <Fragment>
+            <Tooltip title="Edit Details" placement="top">
+                <IconButton className={classes.button} onClick={()=>{
+                    handleOpen();
+                }}>
+                    <EditIcon color="primary"/>
+                </IconButton>
+            </Tooltip>>
+            <Dialog open={open} onClose={()=>{
+                handleClose();
+            }} fullWidth maxWidth="sm">
+                <DialogTitle>Edit your details</DialogTitle>
+                <DialogContent>
+                    <form>
+                    <TextField type="text" multiline rows={3} name="bio" label="bio" placeholder="Please tell us about yourself"
+                    value={newbio} onChange={(event)=>{
+                        setNewbio(event.target.value);
+                    }}   className={classes.textfield} fullWidth>
 
+                    </TextField>
+                    <TextField type="text" name="website" placeholder="your website" label="website"
+                    value={newwebsite} onChange={(event)=>{
+                        setNewwebsite(event.target.value);
+                    }}   className={classes.textfield} fullWidth>
+
+                    </TextField>
+                    <TextField type="text" name="location" placeholder="city, country" label="location"
+                    value={newlocation} onChange={(event)=>{
+                        setNewlocation(event.target.value);
+                    }}   className={classes.textfield} fullWidth>
+
+                    </TextField>
+                    </form>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>{
+                        handleClose();
+                    }} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={()=>{
+                        handleSubmit();
+                    }} color="primary">
+                        Save
+                    </Button>
+                </DialogActions>
+
+            </Dialog>
         </Fragment>
     )
 }
