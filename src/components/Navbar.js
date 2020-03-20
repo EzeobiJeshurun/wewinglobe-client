@@ -7,6 +7,11 @@ import {connect} from 'react-redux';
 import InvertColors from '@material-ui/icons/InvertColors';
 import InvertColorsOff from '@material-ui/icons/InvertColorsOff';
 import {makeStyles} from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import Notifications from '@material-ui/icons/Notifications';
 
 const useStyles = makeStyles(theme=>({
     navContainer:{
@@ -14,6 +19,9 @@ const useStyles = makeStyles(theme=>({
         [theme.breakpoints.down('xs')]:{
         
         }
+    },
+    afterAuthButton:{
+        color: theme.palette.myextra.light
     }
 }));
 
@@ -29,7 +37,25 @@ function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
             <AppBar>
                 <Toolbar className={classes.navContainer}>
                 {authenticated ? (<Fragment>
+                    <Tooltip title="post what's on your mind" placement="top">
+                    <IconButton onClick={()=>{
 
+                    }} className={classes.button}>
+                        <AddIcon className={classes.afterAuthButton}/>
+                    </IconButton>
+                    </Tooltip>
+                    <Link to='/'>
+                    <Tooltip title="home" placement="top">
+                    <IconButton>
+                        <HomeIcon className={classes.afterAuthButton}/>
+                    </IconButton>
+                    </Tooltip>
+                    </Link>
+                    <Tooltip title="notifications" placement="top">
+                    <IconButton>
+                        <Notifications className={classes.afterAuthButton}/>
+                    </IconButton>
+                    </Tooltip>
                 </Fragment>):(
                     <Fragment>
                     <Button color="inherit" component={Link} to="/">Home</Button>

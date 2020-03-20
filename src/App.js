@@ -37,6 +37,7 @@ const theme1 = createMuiTheme({
           contrastText: '#000'
       },
       myextra:{
+        light: 'white',
         main: 'rgb(231, 243, 243)'
       }
   },
@@ -60,7 +61,9 @@ const theme1 = createMuiTheme({
             contrastText: '#fff'
     },
         myextra:{
+          light: 'white',
           main: 'rgb(231, 243, 243)'
+
         }
 },
 
