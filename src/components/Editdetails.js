@@ -1,11 +1,10 @@
-import React,{Fragment, useEffect, useState} from 'react';
+import React,{Fragment, useEffect, useState,useCallback} from 'react';
 import {makeStyles} from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
@@ -14,14 +13,17 @@ import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
 import {editUserDetails} from '../redux/actions/userActions';
 
-const useStyles = (theme=>({
+const useStyles = makeStyles(theme=>({
+    button:{
+        float: 'right'
+    }
 
 }));
 
 
 
 function Editdetails(props) {
-    const {credentials} = props
+    const {credentials} = props;
     const [newbio, setNewbio] = useState('');
     const [newwebsite, setNewwebsite] = useState('');
     const [newlocation, setNewlocation] = useState('');
@@ -31,14 +33,16 @@ function Editdetails(props) {
             bio: newbio,
             website: newwebsite,
             location: newlocation
-        }
+        };
+        props.editUserDetails(userDetails);
+        handleClose();
     };
 
     const handleOpen= ()=>{
         setOpen(true);
         mapUserDetailsToState(credentials);
     };
-    const mapUserDetailsToState =(credintials)=>{
+    const mapUserDetailsToState = useCallback((credintials)=>{
         if(credentials.bio){
             setNewbio(credentials.bio);
           }  
@@ -48,7 +52,7 @@ function Editdetails(props) {
           if(credentials.location){
             setNewlocation(credentials.location);
           }  
-    };
+    },[credentials.bio,credentials.website,credentials.location]);
     const handleClose= ()=>{
         setOpen(false);
     };
@@ -67,7 +71,7 @@ function Editdetails(props) {
                 }}>
                     <EditIcon color="primary"/>
                 </IconButton>
-            </Tooltip>>
+            </Tooltip>
             <Dialog open={open} onClose={()=>{
                 handleClose();
             }} fullWidth maxWidth="sm">
