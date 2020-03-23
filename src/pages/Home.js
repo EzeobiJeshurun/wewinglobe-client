@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Posts from '../components/Posts';
 import Profile   from '../components/Profile';
-import store from '../redux/store';
-import {SET_AUTHENTICATED} from '../redux/types';
-import {getUserData, logoutUser} from '../redux/actions/userActions';
-import jwtDecode from 'jwt-decode';
+//import store from '../redux/store';
+//import {SET_AUTHENTICATED} from '../redux/types';
+//import {getUserData, logoutUser} from '../redux/actions/userActions';
+//import jwtDecode from 'jwt-decode';
 import {makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles(theme=>({
@@ -27,23 +27,23 @@ const useStyles = makeStyles(theme=>({
 
 function Home() {
     const classes = useStyles();
-    const token = localStorage.getItem('FBIdToken');
-    console.log(`this is the token ${token}`);
-    if(token){
-      const decodedToken = jwtDecode(token);
+   // const token = localStorage.getItem('FBIdToken');
+   // console.log(`this is the token ${token}`);
+   // if(token){
+    //  const decodedToken = jwtDecode(token);
       
     
-      if(decodedToken.exp * 1000 < Date.now()){
-        store.dispatch(logoutUser());
+    //  if(decodedToken.exp * 1000 < Date.now()){
+     //   store.dispatch(logoutUser());
         //window.location.href = '/login';
         
-      }else{
-        store.dispatch({type: SET_AUTHENTICATED});
-        axios.defaults.headers.common['Authorization'] = token;
-        store.dispatch(getUserData());
-        axios.defaults.headers.common['Authorization'] = token;
-      }
-    }
+     // }else{
+     //   store.dispatch({type: SET_AUTHENTICATED});
+     //   axios.defaults.headers.common['Authorization'] = token;
+     //   store.dispatch(getUserData());
+     //   axios.defaults.headers.common['Authorization'] = token;
+     // }
+  //  }
     const [weshout, setWeshout] = useState(false);
     useEffect(()=>{
         axios.get('/weshout')

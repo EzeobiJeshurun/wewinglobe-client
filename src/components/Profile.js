@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-function Profile(props) {
+function Profile(props){
     const handleLogout =()=>{
         props.logoutUser();
     };
@@ -160,7 +160,7 @@ function Profile(props) {
     return profileMarkup;
     
     
-}
+};
 
 const mapStateToProps=(state)=>({
     user : state.user

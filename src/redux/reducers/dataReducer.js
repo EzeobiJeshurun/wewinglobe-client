@@ -4,7 +4,7 @@ const initialState = {
     weshouts : [],
     weshout: {},
     loading: false,
-    weshourerrors: {errors: ""}
+    weshouterrors: {errors: ""}
 };
 
 
@@ -27,8 +27,16 @@ export default function (state= initialState, actions){
             return {
                 ...state,
                 loading: false,
-                weshourerrors: actions.payload
-            }     
+                weshouterrors: actions.payload
+            }; 
+            
+        case LIKE_WESHOUT:
+                let index = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
+                state.weshouts[index] = actions.payload;
+                return {
+                    ...state
+                };
+              
             
         default:   
             return state;

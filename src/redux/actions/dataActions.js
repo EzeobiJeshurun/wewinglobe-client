@@ -11,9 +11,10 @@ export const getWeshout = ()=>(dispatch)=>{
         });
     })
     .catch((err)=>{
+        console.log(err);
         dispatch({
-            type: SET_WESHOUT_ERROR,
-            payload: err.response.data
+            type: SET_WESHOUTS,
+            payload: []
         });
     });
 
