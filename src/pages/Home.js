@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback, useMemo} from 'react';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Posts from '../components/Posts';
@@ -33,16 +33,20 @@ function Home(props) {
     const classes = useStyles();
    
     const [weshout, setWeshout] = useState(false);
+    const [steadily, setSteadily] = useState(1);
+
+    
+    const getAllposts = useCallback(getWeshouts,[steadily]);
+    const newWeshout = useMemo(()=>{
+        setWeshout(weshouts);
+    },[weshouts]);
+
     useEffect(()=>{
-        if(weshouts){
-         setWeshout(weshouts);
-        }
+        getAllposts();
        
+    },[getAllposts]);
 
-        getWeshouts();
-    },[getWeshouts,weshouts]);
-
-let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<p>loading...</p>)
+let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<p>loading...</p>);
     return (
         <Grid container className={classes.root} spacing={4}>
             <Grid item sm={4} xs={12}>

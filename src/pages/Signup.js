@@ -26,7 +26,12 @@ const useStyles = makeStyles(theme =>({
         margin: '4px auto 4px auto'
     },
     textField: {
-        margin: '2px auto 2px auto'
+        margin: '2px auto 2px auto',
+        width: '100%',
+        [theme.breakpoints.down('xs')]:{
+            width: '80%'
+        }
+        
     },
     loginTitle:{
         color: theme.palette.primary.main

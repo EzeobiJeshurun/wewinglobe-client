@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+// redux things
+import {connect} from 'react-redux'; //used in connecting store state and any action "functions or classes" to prop
 
 
 const useStyles = makeStyles(theme=>({
