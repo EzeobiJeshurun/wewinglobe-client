@@ -1,4 +1,4 @@
-import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT, SET_WESHOUT_ERROR} from '../types';
+import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 import axios from 'axios';
 
 export const getWeshouts = ()=>(dispatch)=>{
@@ -47,4 +47,11 @@ export const unlikeWeshout =(weshoutId)=>(dispatch)=>{
     .catch((err)=>{
         console.log(err);
     });
+};
+
+export const deleteWeshout = (weshoutId) =>(dispatch)=>{
+    axios.delete(`/weshout/${weshoutId}`)
+    .then((){
+        dispatch({type: })
+    })
 };
