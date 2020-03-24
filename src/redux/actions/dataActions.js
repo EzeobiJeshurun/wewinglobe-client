@@ -1,7 +1,7 @@
 import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT, SET_WESHOUT_ERROR} from '../types';
 import axios from 'axios';
 
-export const getWeshout = ()=>(dispatch)=>{
+export const getWeshouts = ()=>(dispatch)=>{
     dispatch({type: LOADING_DATA});
     axios.get('/weshout')
     .then((res)=>{
@@ -12,10 +12,10 @@ export const getWeshout = ()=>(dispatch)=>{
     })
     .catch((err)=>{
         console.log(err);
-        dispatch({
-            type: SET_WESHOUTS,
-            payload: []
-        });
+       // dispatch({
+        //    type: SET_WESHOUTS,
+        //    payload: []
+       // });
     });
 
 };

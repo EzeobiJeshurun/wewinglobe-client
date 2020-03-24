@@ -2,7 +2,6 @@ import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT, SET_WESHOUT_ER
 
 const initialState = {
     weshouts : [],
-    weshout: {},
     loading: false,
     weshouterrors: {errors: ""}
 };
@@ -30,13 +29,21 @@ export default function (state= initialState, actions){
                 weshouterrors: actions.payload
             }; 
             
-        case LIKE_WESHOUT:
+        
+        case UNLIKE_WESHOUT:    
                 let index = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
                 state.weshouts[index] = actions.payload;
                 return {
                     ...state
                 };
-              
+       case LIKE_WESHOUT:  
+            let indexOfLike = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
+            state.weshouts[indexOfLike] = actions.payload;
+            return {
+                ...state
+              };
+
+                
             
         default:   
             return state;
