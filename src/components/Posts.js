@@ -20,6 +20,7 @@ import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
 
 const useStyles = makeStyles(theme=>({
     card:{
+        position: 'relative',
         display: 'flex',
         marginBottom: 20,
         
