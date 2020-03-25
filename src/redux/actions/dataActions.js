@@ -1,4 +1,4 @@
-import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+import {SET_WESHOUTS, LOADING_DATA,LOADING_UI,POST_WESHOUT,POST_ERRORS, LIKE_WESHOUT, UNLIKE_WESHOUT,CLEAR_POSTERRORS, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 import axios from 'axios';
 
 export const getWeshouts = ()=>(dispatch)=>{
@@ -18,6 +18,28 @@ export const getWeshouts = ()=>(dispatch)=>{
        // });
     });
 
+};
+
+//post a weshout
+export const postWeshout =(userPost)=>(dispatch)=>{
+    dispatch({type: LOADING_UI});
+    axios.post('/weshout', userPost)
+    .then((res)=>{
+        dispatch({
+            type: POST_WESHOUT,
+            payload: res.data,
+        });
+        dispatch({type: CLEAR_POSTERRORS,
+            payload: {error: ""}
+        });
+    }).catch((err)=>{
+        dispatch({
+            type: POST_ERRORS,
+            payload: err.response.data
+
+        });
+        console.log(err);
+    });
 };
 
 // like a weshout

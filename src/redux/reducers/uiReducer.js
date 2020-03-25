@@ -1,5 +1,5 @@
 
-import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS, SIGNUP_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P} from '../types';
+import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS,POST_WESHOUT, SIGNUP_ERRORS,POST_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P, CLEAR_POSTERRORS} from '../types';
 
 const initialState = {
     loading: false,
@@ -9,7 +9,8 @@ const initialState = {
     emailinUse: {email: ''},
     reset: {message: ""},
     resetE: {error: ""},
-    loadingR: false
+    loadingR: false,
+    postError: {error: ""}
 };
 
 export default function(state=initialState,action){
@@ -60,6 +61,20 @@ export default function(state=initialState,action){
             return {
                 ...state,
                 loadingR: true
+            };
+        case CLEAR_POSTERRORS:
+            return {
+                ...state,
+                loading: false,
+                postError: {error: ""}
+                
+            };
+        
+        case POST_ERRORS:
+            return {
+                ...state,
+                loading: false,
+                postError: action.payload
             };    
                 
         default:

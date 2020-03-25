@@ -9,9 +9,10 @@ import InvertColorsOff from '@material-ui/icons/InvertColorsOff';
 import {makeStyles} from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
+
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
+import AddPost from './AddPost';
 
 const useStyles = makeStyles(theme=>({
     navContainer:{
@@ -38,11 +39,7 @@ function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
                 <Toolbar className={classes.navContainer}>
                 {authenticated ? (<Fragment>
                     <Tooltip title="post what's on your mind" placement="top">
-                    <IconButton onClick={()=>{
-
-                    }} className={classes.button}>
-                        <AddIcon className={classes.afterAuthButton}/>
-                    </IconButton>
+                    <AddPost/>
                     </Tooltip>
                     <Link to='/'>
                     <Tooltip title="home" placement="top">

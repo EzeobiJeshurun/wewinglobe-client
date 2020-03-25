@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
-import {DeleteWeshout} from './DeleteWeshout';
+import DeleteWeshout from './DeleteWeshout';
 // redux things
 import {connect} from 'react-redux'; //used in connecting store state and any action "functions or classes" to prop
 import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
@@ -81,7 +81,7 @@ let implementUnlike =()=>{
    </Tooltip>));
 
     const deleteButton= authenticated && handle === userHandle? (
-    <Tooltip title="delete" placement="top"> 
+    <Tooltip title="delete post" placement="top"> 
         <DeleteWeshout weshoutId={weshoutId}/>
     </Tooltip>) : null;
     return (

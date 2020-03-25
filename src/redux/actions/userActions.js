@@ -106,6 +106,7 @@ export const uploadImage =(formData)=>(dispatch)=>{
     })
     .catch((err)=>{
         console.log(err);
+        
     });
 };
 

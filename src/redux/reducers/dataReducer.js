@@ -1,4 +1,4 @@
-import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 
 const initialState = {
     weshouts : [],
@@ -49,7 +49,16 @@ export default function (state= initialState, actions){
               
             return {
                 ...state,
-            };   
+            };
+        case POST_WESHOUT:
+            return {
+                ...state,
+                weshouts: [
+                    actions.payload,
+                    ...state.weshouts
+                ]
+            };    
+
 
                 
             
