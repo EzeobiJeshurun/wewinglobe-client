@@ -51,7 +51,11 @@ export const unlikeWeshout =(weshoutId)=>(dispatch)=>{
 
 export const deleteWeshout = (weshoutId) =>(dispatch)=>{
     axios.delete(`/weshout/${weshoutId}`)
-    .then((){
-        dispatch({type: })
+    .then(()=>{
+        dispatch({type: DELETE_WESHOUT,
+                   payload: weshoutId});
     })
+    .catch((err)=>{
+        console.log(err);
+    });
 };
