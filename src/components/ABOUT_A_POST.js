@@ -42,7 +42,18 @@ const handleClose=()=>{
     setOpen(false);
 };
 
-const dialogMarkUp = loading ? ():()
+const dialogMarkUp = loading ? ( <CircularProgress size={200}></CircularProgress>):(
+<Grid container spacing={4} >
+    <Grid item sm={5}>
+        <img src={userImage} alt="profile" className={classes.profileImage}/>
+
+    </Grid>
+    <Grid item sm={7}>
+
+    </Grid>
+
+</Grid>
+);
     return (
         <Fragment>
             <Tooltip title="view post" placement="top">
