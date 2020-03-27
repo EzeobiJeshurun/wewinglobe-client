@@ -1,9 +1,10 @@
-import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 
 const initialState = {
     weshouts : [],
     loading: false,
-    weshouterrors: {errors: ""}
+    weshouterrors: {errors: ""},
+    closeOnRecieve: ""
 };
 
 
@@ -16,9 +17,11 @@ export default function (state= initialState, actions){
              };
          
         case SET_WESHOUTS:
+            let currentPosts = actions.payload;
+             let allPosts = currentPosts.reverse();
             return {
                 ...state,
-                weshouts: actions.payload,
+                weshouts: allPosts,
                 loading: false
 
             };
@@ -53,10 +56,17 @@ export default function (state= initialState, actions){
         case POST_WESHOUT:
             return {
                 ...state,
+                closeOnRecieve: actions.payload.weshoutId,
                 weshouts: [
                     actions.payload,
                     ...state.weshouts
                 ]
+            };
+            
+        case CLEAR_CLOSE_ON_RECEIVE:
+            return {
+                ...state,
+                closeOnRecieve: ""
             };    
 
 

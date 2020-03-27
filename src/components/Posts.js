@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme=>({
 }));
 
 function Posts(props) {
-    const {onepost:{userHandle,body,likeCount,commentCount,weshoutId,createdAt,userImage}, user: {authenticated, likes, credentialS : {handle}}} = props;
+    const {onepost:{userHandle,body,likeCount,commentCount,weshoutId,createdAt,userImage}, user: {authenticated, likes, credentials : {handle}}} = props;
     const classes = useStyles();
     dayjs.extend(relativeTime);
 

@@ -38,9 +38,9 @@ function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
             <AppBar>
                 <Toolbar className={classes.navContainer}>
                 {authenticated ? (<Fragment>
-                    <Tooltip title="post what's on your mind" placement="top">
-                    <AddPost className={classes.afterAuthButton}/>
-                    </Tooltip>
+                    
+                    <AddPost/>
+                    
                     <Link to='/'>
                     <Tooltip title="home" placement="top">
                     <IconButton>

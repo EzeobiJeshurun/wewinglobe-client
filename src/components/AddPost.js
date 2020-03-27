@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from 'react';
+import React, { Fragment, useState,useEffect, useMemo} from 'react';
 import {makeStyles} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -14,15 +14,23 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 
 import {connect} from 'react-redux';
+import store from '../redux/store';
+import {CLEAR_CLOSE_ON_RECEIVE} from '../redux/types';
 import {postWeshout} from '../redux/actions/dataActions';
 
 
 const Styles = makeStyles(theme =>({
+    addButton:{
+        color: theme.palette.myextra.light,
+    },
     closeButton:{
-        
+        position: 'absolute',
+        left: '90%',
+        top: '4%'
     },
     submitButton:{
         position: 'relative',
+        marginTop: '5%'
     },
     spinner:{
         position: 'absolute',
@@ -30,9 +38,11 @@ const Styles = makeStyles(theme =>({
 }));
 
 function AddPost(props) {
-    const {UI: {loading, postError}} = props;
+    const {UI: {loading, postError}, closeOnRecieve } = props;
     const [open , setOpen] = useState(false);
-
+    const [error, setError] = useState({error: ""});
+    //the state helpClose, is assigned to ensure the dialog closes only when there is no errors.
+    const [helpClose, setHelpClose] = useState({error: "Some control texts"});
     const [body, setBody] = useState("");
     const handleOpen=()=>{
         setOpen(true);
@@ -41,15 +51,46 @@ function AddPost(props) {
         setOpen(false);
     };
 
-    const addNewPost = ()=>{
-
+    const addNewPost = (event)=>{
+        event.preventDefault();
+        props.postWeshout({body: body});
+        
     };
+    
+    const whenErrorChanges = useMemo(()=>{
+    
+    
+        setError(postError);
+        
+    },[postError]);
+
+    //implements adequate response of helpClose with changes in error
+    
+    const theHelperHandleClose = useMemo(()=>{
+    
+           if(closeOnRecieve!==""){
+               handleClose();
+            store.dispatch({
+                type: CLEAR_CLOSE_ON_RECEIVE,
+            });
+           }
+        
+       
+    },[closeOnRecieve]);
+
+    
+
+    
     const classes = Styles();
     return (
         <Fragment>
-           <IconButton>
-               <AddIcon/>
-            </IconButton> 
+            <Tooltip title="post what's on your mind" placement="top">
+           <IconButton onClick={()=>{
+               handleOpen();
+           }}>
+               <AddIcon className={classes.addButton}/>
+            </IconButton>
+            </Tooltip> 
             <Dialog open={open} onClose={()=>{
                 handleClose();
             }}  fullWidth maxWidth="sm">
@@ -57,24 +98,27 @@ function AddPost(props) {
                 <IconButton onClick={()=>{
                     handleClose();
                 }} className={classes.closeButton}>
-                    <CloseIcon/>
+                    <CloseIcon color="primary"/>
                 </IconButton>
                 </Tooltip>
                 <DialogTitle>What's on your mind? Post.</DialogTitle>
                 <DialogContent>
-                    <form onSubmit={()=>{
+                    <form onSubmit={(event)=>{
+                        addNewPost(event)
                         
                     }}>
-                        <TextField name="body" value={body} type="text" error={postError.error? true: false} helperText={postError.error}
-                         label="Share something" multiline row={4} placeholder="Let your friends know what you think"
-                         className={classes.textField} onChange={(event)=>{
+                        <TextField name="body" value={body} type="text" error={error.error? true: false} helperText={error.error}
+                         label="Share something" multiline rowsMax={6} rows={4} placeholder="Let your friends know what you think"
+                         className={classes.textField} onFocus={()=>{
+                             setError({error: ""});
+                         }} onChange={(event)=>{
                             setBody(event.target.value)
                          }}   fullWidth>
                             
                         </TextField>
                         <Button type="submit" variant="contained" color="primary" className={classes.submitButton} disabled={loading}>
                             submit
-                         {loading&& (<CircularProgress className={classes.spinner} size={30}></CircularProgress>)}
+                         {loading && (<CircularProgress className={classes.spinner} size={30}></CircularProgress>)}
                         </Button>
                     </form>
 
@@ -85,7 +129,8 @@ function AddPost(props) {
     )
 }
 const mapStateToProps =(state)=>({
-    UI: state.UI
+    UI: state.UI,
+    closeOnRecieve: state.data.closeOnRecieve
 });
 
 const mapActionsToProps = {
