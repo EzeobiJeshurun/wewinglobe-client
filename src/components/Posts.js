@@ -13,6 +13,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import DeleteWeshout from './DeleteWeshout';
+import ABOUT_A_POST from './ABOUT_A_POST';
 // redux things
 import {connect} from 'react-redux'; //used in connecting store state and any action "functions or classes" to prop
 import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
@@ -100,6 +101,7 @@ let implementUnlike =()=>{
                     </IconButton>
                 </Tooltip>
                 <span>{commentCount}comment</span>
+                <ABOUT_A_POST userHandle={userHandle} weshoutId = {weshoutId}/>
            </CardContent>
        </Card>
     )

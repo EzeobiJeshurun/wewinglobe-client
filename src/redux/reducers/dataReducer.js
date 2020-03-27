@@ -1,4 +1,4 @@
-import {SET_WESHOUTS, LOADING_DATA, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+import {SET_WESHOUTS, LOADING_DATA,A_SINGLE_POST, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 
 const initialState = {
     weshouts : [],
@@ -67,7 +67,13 @@ export default function (state= initialState, actions){
             return {
                 ...state,
                 closeOnRecieve: ""
-            };    
+            };
+            
+        case A_SINGLE_POST:
+            
+            return {
+
+            }
 
 
                 

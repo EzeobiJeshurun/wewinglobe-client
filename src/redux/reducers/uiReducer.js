@@ -1,5 +1,5 @@
 
-import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS,POST_WESHOUT, SIGNUP_ERRORS,POST_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P, CLEAR_POSTERRORS} from '../types';
+import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS,POST_WESHOUT, STOP_UI_LOADING,SIGNUP_ERRORS,POST_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P, CLEAR_POSTERRORS} from '../types';
 
 const initialState = {
     loading: false,
@@ -75,6 +75,12 @@ export default function(state=initialState,action){
                 ...state,
                 loading: false,
                 postError: action.payload
+            };
+            
+        case STOP_UI_LOADING:
+            return {
+                ...state,
+                loading: false,
             };    
                 
         default:

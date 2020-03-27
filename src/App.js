@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import AuthRoute from './util/AuthRoute';
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider as MuiThemeProvider, rgbToHex } from '@material-ui/core/styles';
 //pages 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -32,9 +32,9 @@ const theme1 = createMuiTheme({
       },
       secondary:{
           light: '#fff179',
-          main: '#ffee58',
+          main: '#d50000',
           dark: '#b2a63d',
-          contrastText: '#000'
+          contrastText: '#fff'
       },
       myextra:{
         light: 'white',
@@ -56,7 +56,7 @@ const theme1 = createMuiTheme({
     },
         secondary:{
             light: '#f73378' ,
-            main : '#f50057',
+            main : '#d50000',
             dark : '#ab003c',
             contrastText: '#fff'
     },

@@ -14,6 +14,7 @@ export const RESET_P = 'RESET_P';
 export const LOADING_EUI= 'LOADING_EUI';
 export const LOADING_DATA = 'LOADING_DATA';
 export const POST_ERRORS= 'POST_ERRORS';
+export const STOP_UI_LOADING= 'STOP_UI_LOADING';
 
 //data reducer types
 export const SET_WESHOUT_ERROR = 'SET_WESHOUT_ERROR';
@@ -25,4 +26,6 @@ export const DELETE_WESHOUT = 'DELETE_WESHOUT';
 export const POST_WESHOUT ='POST_WESHOUT';
 export const CLEAR_POSTERRORS='CLEAR_POSTERRORS';
 export const CLEAR_CLOSE_ON_RECEIVE= 'CLEAR_CLOSE_ON_RECEIVE';
+export const A_SINGLE_POST= 'A_SINGLE_POST';
+
 

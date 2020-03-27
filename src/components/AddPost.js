@@ -20,6 +20,9 @@ import {postWeshout} from '../redux/actions/dataActions';
 
 
 const Styles = makeStyles(theme =>({
+    eventForm: {
+        position: 'relative',
+    },
     addButton:{
         color: theme.palette.myextra.light,
     },
@@ -30,7 +33,9 @@ const Styles = makeStyles(theme =>({
     },
     submitButton:{
         position: 'relative',
-        marginTop: '5%'
+        marginTop: '4%',
+        marginBottom: '3%',
+        left: '80%'
     },
     spinner:{
         position: 'absolute',
@@ -42,7 +47,7 @@ function AddPost(props) {
     const [open , setOpen] = useState(false);
     const [error, setError] = useState({error: ""});
     //the state helpClose, is assigned to ensure the dialog closes only when there is no errors.
-    const [helpClose, setHelpClose] = useState({error: "Some control texts"});
+    
     const [body, setBody] = useState("");
     const handleOpen=()=>{
         setOpen(true);
@@ -104,9 +109,9 @@ function AddPost(props) {
                 <DialogTitle>What's on your mind? Post.</DialogTitle>
                 <DialogContent>
                     <form onSubmit={(event)=>{
-                        addNewPost(event)
+                        addNewPost(event)                  
                         
-                    }}>
+                    }}  className={classes.eventForm}>
                         <TextField name="body" value={body} type="text" error={error.error? true: false} helperText={error.error}
                          label="Share something" multiline rowsMax={6} rows={4} placeholder="Let your friends know what you think"
                          className={classes.textField} onFocus={()=>{
@@ -116,6 +121,7 @@ function AddPost(props) {
                          }}   fullWidth>
                             
                         </TextField>
+                        <br/>
                         <Button type="submit" variant="contained" color="primary" className={classes.submitButton} disabled={loading}>
                             submit
                          {loading && (<CircularProgress className={classes.spinner} size={30}></CircularProgress>)}
