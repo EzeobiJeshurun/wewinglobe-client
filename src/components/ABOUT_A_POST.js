@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useMemo} from 'react';
 import{Link } from  'react-router-dom';
 import dayjs from 'dayjs';
 import {makeStyles} from '@material-ui/core';
@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 //material icons
 import CloseIcon from '@material-ui/icons/Close';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
 //redux 
 import {connect } from 'react-redux';
 //action functions
@@ -26,18 +27,53 @@ const Styles = makeStyles(theme=>({
 }));
 
 function ABOUT_A_POST(props) {
-    const {weshoutId, userHandle, UI: {loading} }= props;
+    const {postId, postHandle, 
+        UI: {loading}, 
+        data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body }} }= props;
 const classes = Styles();
 
+const [open, setOpen] = useState(false);
+const handleOpen=()=>{
+ setOpen(true);
+ props.getOnePost(postId);
+};
+
+const handleClose=()=>{
+    setOpen(false);
+};
+
+const dialogMarkUp = loading ? ():()
     return (
-        <div>
-            
-        </div>
+        <Fragment>
+            <Tooltip title="view post" placement="top">
+            <IconButton onClick={()=>{
+                handleOpen();
+            } } className={classes.showButton} >
+                <UnfoldMore color="primary" />
+            </IconButton> 
+            </Tooltip>
+            <Dialog open={open} onClose={()=>{
+                handleClose();
+            }} fullWidth maxWidth="sm">
+            <Tooltip title="close" placement="top">
+            <IconButton onClick={()=>{
+                handleClose();
+            } } className={classes.closeButton} >
+                <CloseIcon color="primary" />
+            </IconButton> 
+            </Tooltip>
+            <DialogContent className={classes.dialogContent}>
+            {dialogMarkUp}
+            </DialogContent>
+
+            </Dialog>
+
+        </Fragment>
     )
 }
 const mapStateToProps = (state)=>({
 UI: state.UI,
-data: state.data
+data: state.data,
 });
 
 const mapActionsToProp= {

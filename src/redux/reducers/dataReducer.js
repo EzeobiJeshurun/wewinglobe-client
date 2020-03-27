@@ -4,7 +4,8 @@ const initialState = {
     weshouts : [],
     loading: false,
     weshouterrors: {errors: ""},
-    closeOnRecieve: ""
+    closeOnRecieve: "",
+    singlePost: {}
 };
 
 

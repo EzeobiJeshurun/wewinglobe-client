@@ -101,7 +101,7 @@ let implementUnlike =()=>{
                     </IconButton>
                 </Tooltip>
                 <span>{commentCount}comment</span>
-                <ABOUT_A_POST userHandle={userHandle} weshoutId = {weshoutId}/>
+                <ABOUT_A_POST postHandle={userHandle} postId = {weshoutId}/>
            </CardContent>
        </Card>
     )
