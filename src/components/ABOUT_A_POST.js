@@ -27,6 +27,28 @@ const Styles = makeStyles(theme=>({
         border: 'none',
         margin: 4,
     },
+    profileImage: {
+        maxWidth: 300,
+        maxHeight: 300,
+        borderRaduis: '50%',
+        objectFit: 'cover',
+    },
+    dialogContent: {
+        padding: 20,
+    },
+    closeButton:{
+        position: 'absolute',
+        left: '90%',
+    },
+    showButton: {
+        position: 'absolute',
+        left: '90%'
+    },
+    spinnerDiv:{
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50,
+    },
 
 }));
 
@@ -46,7 +68,7 @@ const handleClose=()=>{
     setOpen(false);
 };
 
-const dialogMarkUp = loading ? ( <CircularProgress size={200}></CircularProgress>):(
+const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularProgress thickness={2} size={200}/></div>):(
 <Grid container spacing={4} >
     <Grid item sm={5}>
         <img src={userImage} alt="profile" className={classes.profileImage}/>
@@ -61,7 +83,9 @@ const dialogMarkUp = loading ? ( <CircularProgress size={200}></CircularProgress
             {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
         </Typography>
         <hr className={classes.invinsibleSeparator} />
-        
+        <Typography variant="body1">
+            {body}
+        </Typography>
 
     </Grid>
 

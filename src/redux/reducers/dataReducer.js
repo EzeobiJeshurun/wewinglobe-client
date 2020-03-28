@@ -73,7 +73,8 @@ export default function (state= initialState, actions){
         case A_SINGLE_POST:
             
             return {
-
+                ...state,
+                singlePost: actions.payload,
             };
 
 
