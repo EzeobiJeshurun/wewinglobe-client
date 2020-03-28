@@ -10,13 +10,14 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Favorite from '@material-ui/icons/Favorite';
+//import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+//import Favorite from '@material-ui/icons/Favorite';
 import DeleteWeshout from './DeleteWeshout';
 import ABOUT_A_POST from './ABOUT_A_POST';
+import LikeButton from './LikeButton';
 // redux things
 import {connect} from 'react-redux'; //used in connecting store state and any action "functions or classes" to prop
-import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
+//import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
 
 
 const useStyles = makeStyles(theme=>({
@@ -48,39 +49,7 @@ function Posts(props) {
     const classes = useStyles();
     dayjs.extend(relativeTime);
 
-  let  likeCheck =()=>{
-    if(likes && likes.find(like => like.weshoutId === weshoutId)){
-        return true;
-    }else{
-        return false;
-    }
-    };
-
-let implementLike =()=>{
-    props.likeWeshout(weshoutId);
-}; 
-let implementUnlike =()=>{
-    props.unlikeWeshout(weshoutId);
-};
-
-    let likeButton = !authenticated? ( 
-    <Tooltip title="like" placement="top">
-    <IconButton>
-        <Link to='/Login'>
-        <FavoriteBorder color="primary"/>
-        </Link>
-    </IconButton>
-   </Tooltip>):(likeCheck() ?( //begining of if the user is authenticad
-   <Tooltip title="Undo like" placement="top">
-    <IconButton onClick={()=>{ implementUnlike()}}>
-        <Favorite color="primary"/>
-    </IconButton>
-   </Tooltip>):(<Tooltip title="like" placement="top">
-    <IconButton onClick={()=>{ implementLike()}}>
-        <FavoriteBorder color="primary"/>
-    </IconButton>
-   </Tooltip>));
-
+  
     const deleteButton= authenticated && handle === userHandle? (
     <Tooltip title="delete post" placement="top"> 
         <DeleteWeshout weshoutId={weshoutId}/>
@@ -93,7 +62,8 @@ let implementUnlike =()=>{
                 {deleteButton}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1" >{body}</Typography>
-                {likeButton} 
+                <LikeButton weshoutId= {weshoutId}/>
+        
                 <span>{likeCount}likes</span>
                 <Tooltip title="comment" placement="top">
                     <IconButton>
@@ -112,7 +82,7 @@ const mapStateToProps= (state)=>({
 })
 
 const mapActionsToProp = {
-    likeWeshout,
-    unlikeWeshout,
+   // likeWeshout,
+   // unlikeWeshout,
 };
 export default connect(mapStateToProps,mapActionsToProp)(Posts);

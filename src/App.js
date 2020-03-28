@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import AuthRoute from './util/AuthRoute';
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import { ThemeProvider as MuiThemeProvider, rgbToHex } from '@material-ui/core/styles';
+import { ThemeProvider as MuiThemeProvider,} from '@material-ui/core/styles';
 //pages 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -15,7 +15,7 @@ import ChangePassword from './pages/ChangePassword';
 import Navbar from './components/Navbar';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-import { typography } from '@material-ui/system';
+
 //Redux 
 import {Provider} from 'react-redux';
 import store from './redux/store';

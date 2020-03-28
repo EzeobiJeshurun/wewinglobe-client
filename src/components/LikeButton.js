@@ -12,7 +12,23 @@ import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
 
 
 
-function LikeButton() {
+function LikeButton(props) {
+    const {weshoutId, user: {likes, authenticated}}= props;
+    let  likeCheck =()=>{
+        if(likes && likes.find(like => like.weshoutId === weshoutId)){
+            return true;
+        }else{
+            return false;
+        }
+        };
+    
+    let implementLike =()=>{
+        props.likeWeshout(weshoutId);
+    }; 
+    let implementUnlike =()=>{
+        props.unlikeWeshout(weshoutId);
+    };
+    
     let ForLikeButton = !authenticated? ( 
         <Tooltip title="like" placement="top">
         <IconButton>
@@ -34,11 +50,12 @@ function LikeButton() {
     return ForLikeButton;
 }
 const mapStateToProps=(state)=>({
-
+    user: state.user,
 });
 
 const mapActionsToProp ={
-
+    likeWeshout,
+    unlikeWeshout,
 };
 
 export default connect(mapStateToProps, mapActionsToProp)(LikeButton);
