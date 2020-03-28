@@ -4,6 +4,9 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import {Link } from 'react-router-dom';
+//redux
+import { connect } from 'react-redux';
+import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
 
 
 
@@ -30,6 +33,13 @@ function LikeButton() {
     
     return ForLikeButton;
 }
+const mapStateToProps=(state)=>({
 
-export default LikeButton;
+});
+
+const mapActionsToProp ={
+
+};
+
+export default connect(mapStateToProps, mapActionsToProp)(LikeButton);
 
