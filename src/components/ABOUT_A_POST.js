@@ -23,6 +23,10 @@ import {getOnePost} from '../redux/actions/dataActions';
 
 
 const Styles = makeStyles(theme=>({
+    invinsibleSeparator:{
+        border: 'none',
+        margin: 4,
+    },
 
 }));
 
@@ -49,6 +53,15 @@ const dialogMarkUp = loading ? ( <CircularProgress size={200}></CircularProgress
 
     </Grid>
     <Grid item sm={7}>
+        <Typography component={Link} to={`/users/${userHandle}`} color="primary" variant="h6" >
+        @{userHandle}
+        </Typography>
+        <hr className={classes.invinsibleSeparator} />
+        <Typography variant="body2" color="textSecondary">
+            {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
+        </Typography>
+        <hr className={classes.invinsibleSeparator} />
+        
 
     </Grid>
 
