@@ -37,12 +37,14 @@ export default function (state= initialState, actions){
         case UNLIKE_WESHOUT:    
                 let index = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
                 state.weshouts[index] = actions.payload;
+                state.singlePost = actions.payload;
                 return {
                     ...state
                 };
        case LIKE_WESHOUT:  
             let indexOfLike = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
             state.weshouts[indexOfLike] = actions.payload;
+            state.singlePost = actions.payload;    
             return {
                 ...state
               };

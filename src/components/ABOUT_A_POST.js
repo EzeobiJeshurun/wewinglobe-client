@@ -16,10 +16,13 @@ import Typography from '@material-ui/core/Typography';
 //material icons
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 //redux 
 import {connect } from 'react-redux';
 //action functions
 import {getOnePost} from '../redux/actions/dataActions';
+//...
+import LikeButton from './LikeButton';
 
 
 const Styles = makeStyles(theme=>({
@@ -28,9 +31,9 @@ const Styles = makeStyles(theme=>({
         margin: 4,
     },
     profileImage: {
-        maxWidth: 300,
-        maxHeight: 300,
-        borderRaduis: '50%',
+        maxWidth: 200,
+        maxHeight: 200,
+        borderRadius: '50%',
         objectFit: 'cover',
     },
     dialogContent: {
@@ -87,6 +90,14 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
             {body}
         </Typography>
 
+        <LikeButton weshoutId={weshoutId}/>
+        <span>{likeCount}likes</span>
+        <Tooltip title="comment" placement="top">
+                    <IconButton>
+                        <ChatIcon color="primary"/>
+                    </IconButton>
+                </Tooltip>
+                <span>{commentCount}comment</span>
     </Grid>
 
 </Grid>

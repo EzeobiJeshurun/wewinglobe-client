@@ -31,11 +31,13 @@ function LikeButton(props) {
     
     let ForLikeButton = !authenticated? ( 
         <Tooltip title="like" placement="top">
+        <Link to='/Login'>   
         <IconButton>
-            <Link to='/Login'>
+            
             <FavoriteBorder color="primary"/>
-            </Link>
+            
         </IconButton>
+        </Link>
        </Tooltip>):(likeCheck() ?( //begining of if the user is authenticad
        <Tooltip title="Undo like" placement="top">
         <IconButton onClick={()=>{ implementUnlike()}}>
