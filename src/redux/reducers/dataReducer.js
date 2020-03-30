@@ -6,7 +6,8 @@ const initialState = {
     weshouterrors: {errors: ""},
     closeOnRecieve: "",
     singlePost: {},
-    commentErrors: {errors: ""}
+    commentErrors: {errors: ""},
+    commentResponse: {},
 };
 
 
@@ -82,7 +83,8 @@ export default function (state= initialState, actions){
 
         case   CREATE_COMMENT:
             return {
-
+                ...state,
+                singlePost: {...state.singlePost, comments : [actions.payload, ...state.singlePost.comments]},
             };
             
         case  COMMENT_ERRORS:
