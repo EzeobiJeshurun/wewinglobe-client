@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 
 ///Redux 
 import {connect} from 'react-redux';
-import {editUserDetails} from '../redux/actions/userActions';
+import {editUserDetails} from '../../redux/actions/userActions';
 
 const useStyles = makeStyles(theme=>({
     button:{

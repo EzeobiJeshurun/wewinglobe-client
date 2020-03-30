@@ -20,9 +20,10 @@ import ChatIcon from '@material-ui/icons/Chat';
 //redux 
 import {connect } from 'react-redux';
 //action functions
-import {getOnePost} from '../redux/actions/dataActions';
+import {getOnePost} from '../../redux/actions/dataActions';
 //...
 import LikeButton from './LikeButton';
+import Comment from './Comment';
 
 
 const Styles = makeStyles(theme=>({
@@ -52,13 +53,18 @@ const Styles = makeStyles(theme=>({
         marginTop: 50,
         marginBottom: 50,
     },
+    visibleSeparator: {
+        width: '100%',
+        borderBottom: '1px solid rgba(0,0,0,0.1)',
+        marginBottom: 20,
+    },
 
 }));
 
 function ABOUT_A_POST(props) {
     const {postId, postHandle, 
         UI: {loading}, 
-        data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body }} }= props;
+        data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body, comments }} }= props;
 const classes = Styles();
 
 const [open, setOpen] = useState(false);
@@ -99,6 +105,8 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
                 </Tooltip>
                 <span>{commentCount}comment</span>
     </Grid>
+    <hr className={classes.visibleSeparator} />
+    <Comment comments= {comments}/>
 
 </Grid>
 );

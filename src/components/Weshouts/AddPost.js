@@ -14,9 +14,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 
 import {connect} from 'react-redux';
-import store from '../redux/store';
-import {CLEAR_CLOSE_ON_RECEIVE} from '../redux/types';
-import {postWeshout} from '../redux/actions/dataActions';
+import store from '../../redux/store';
+import {CLEAR_CLOSE_ON_RECEIVE} from '../../redux/types';
+import {postWeshout} from '../../redux/actions/dataActions';
 
 
 const Styles = makeStyles(theme =>({

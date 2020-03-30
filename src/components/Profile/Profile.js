@@ -3,7 +3,7 @@ import React, {Fragment, useMemo} from 'react';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import {logoutUser, uploadImage} from '../redux/actions/userActions';
+import {logoutUser, uploadImage} from '../../redux/actions/userActions';
 import Editdetails from './Editdetails';
 //Material UI 
 import Tooltip from '@material-ui/core/Tooltip';

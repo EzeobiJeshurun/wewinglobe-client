@@ -2,8 +2,8 @@ import React from 'react';
 import {useState, useEffect, useCallback, useMemo} from 'react';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import Posts from '../components/Posts';
-import Profile   from '../components/Profile';
+import Posts from '../components/Weshouts/Posts';
+import Profile   from '../components/Profile/Profile';
 
 //import store from '../redux/store';
 //import {SET_AUTHENTICATED} from '../redux/types';

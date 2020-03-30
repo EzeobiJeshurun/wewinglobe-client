@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import {connect} from 'react-redux';
-import {deleteWeshout} from '../redux/actions/dataActions';
+import {deleteWeshout} from '../../redux/actions/dataActions';
 
 const Styles = makeStyles(theme=>({
     deleteButton: {

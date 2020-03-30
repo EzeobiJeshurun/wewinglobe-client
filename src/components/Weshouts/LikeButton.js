@@ -6,7 +6,7 @@ import Favorite from '@material-ui/icons/Favorite';
 import {Link } from 'react-router-dom';
 //redux
 import { connect } from 'react-redux';
-import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
+import {unlikeWeshout, likeWeshout} from '../../redux/actions/dataActions';
 
 
 

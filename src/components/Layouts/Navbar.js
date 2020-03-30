@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
-import AddPost from './AddPost';
+import AddPost from '../Weshouts/AddPost';
 
 const useStyles = makeStyles(theme=>({
     navContainer:{

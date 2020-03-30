@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ChangePassword from './pages/ChangePassword';
 //components
-import Navbar from './components/Navbar';
+import Navbar from './components/Layouts/Navbar';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 
