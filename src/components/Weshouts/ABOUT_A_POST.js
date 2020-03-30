@@ -24,6 +24,7 @@ import {getOnePost} from '../../redux/actions/dataActions';
 //...
 import LikeButton from './LikeButton';
 import Comment from './Comment';
+import FormForComment from './FormForComment';
 
 
 const Styles = makeStyles(theme=>({
@@ -106,6 +107,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
                 <span>{commentCount}comment</span>
     </Grid>
     <hr className={classes.visibleSeparator} />
+    <FormForComment weshoutId={weshoutId}/>
     <Comment comments= {comments}/>
 
 </Grid>

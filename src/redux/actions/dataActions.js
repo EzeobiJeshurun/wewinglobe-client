@@ -1,5 +1,5 @@
 import {SET_WESHOUTS, LOADING_DATA,LOADING_UI,POST_WESHOUT,POST_ERRORS,
-    A_SINGLE_POST, LIKE_WESHOUT, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+    A_SINGLE_POST, LIKE_WESHOUT, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT, SET_WESHOUT_ERROR, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
 import axios from 'axios';
 
 export const getWeshouts = ()=>(dispatch)=>{
@@ -98,4 +98,25 @@ export const deleteWeshout = (weshoutId) =>(dispatch)=>{
     .catch((err)=>{
         console.log(err);
     });
+};
+//function that handles comment submission
+export const createComment = (weshoutId,commentData)=>(dispatch)=>{
+   // dispatch({
+     //   type: LOADING_UI,
+   // });
+    axios.post(`/weshout/${weshoutId}/comment`, commentData)
+    .then((res)=>{
+        dispatch({
+            type: CREATE_COMMENT,
+            payload: res.data,
+        });
+        
+    }).catch((err)=>{
+        dispatch({
+            type: COMMENT_ERRORS,
+            payload: err.response.data,
+        });
+        console.log(err);
+    });
+
 };
