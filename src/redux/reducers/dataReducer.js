@@ -1,4 +1,4 @@
-import {SET_WESHOUTS, LOADING_DATA,A_SINGLE_POST,CREATE_COMMENT,COMMENT_ERRORS, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+import {SET_WESHOUTS, LOADING_DATA,A_SINGLE_POST,CREATE_COMMENT,COMMENT_ERRORS,DETAILS_OF_A_USER, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 
 const initialState = {
     weshouts : [],
@@ -8,6 +8,7 @@ const initialState = {
     singlePost: {},
     commentErrors: {errors: ""},
     commentResponse: {},
+    aboutOneUser: {},
 };
 
 
@@ -91,6 +92,12 @@ export default function (state= initialState, actions){
             return {
                 ...state,
                 commentErrors: actions.payload,
+            };
+         
+        case DETAILS_OF_A_USER:
+            return {
+                ...state,
+                aboutOneUser: actions.payload,
             };    
 
 

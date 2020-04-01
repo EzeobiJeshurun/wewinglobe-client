@@ -1,5 +1,5 @@
 import {SET_WESHOUTS, LOADING_DATA,LOADING_UI,POST_WESHOUT,POST_ERRORS,
-    A_SINGLE_POST, LIKE_WESHOUT, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT, SET_WESHOUT_ERROR, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
+    A_SINGLE_POST, LIKE_WESHOUT, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT,DETAILS_OF_A_USER, SET_WESHOUT_ERROR, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
 import axios from 'axios';
 
 export const getWeshouts = ()=>(dispatch)=>{
@@ -123,5 +123,19 @@ export const createComment = (weshoutId,commentData)=>(dispatch)=>{
 // this function handles fetching of a users profile, when you which to obtain details on a particular user, this is the 
 // solution.
 export const getSpecificUserDetails = (userHandle) =>(dispatch)=>{
-
+    dispatch({
+        type: LOADING_DATA,
+    });
+    axios.get(`/user/${userHandle}`)
+    .then((res)=>{
+        dispatch({
+            type: DETAILS_OF_A_USER,
+            payload: res.data.weshout,
+        });
+    }).catch((err)=>{
+        dispatch({
+            type: DETAILS_OF_A_USER,
+            payload: null,
+        });
+    });
 };
