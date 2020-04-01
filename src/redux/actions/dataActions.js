@@ -120,3 +120,8 @@ export const createComment = (weshoutId,commentData)=>(dispatch)=>{
     });
 
 };
+// this function handles fetching of a users profile, when you which to obtain details on a particular user, this is the 
+// solution.
+export const getSpecificUserDetails = (userHandle) =>(dispatch)=>{
+
+};

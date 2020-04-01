@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme=>({
     },
     image: {
         minWidth: 250,
-        minHeight: 300,
+        minHeight: 250,
         objectFit: 'cover'
 
     }
