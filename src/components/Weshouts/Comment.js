@@ -6,8 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 const Styles = makeStyles(theme =>({
+    mainGrid:{
+        margin: 3,
+        width: '100%',
+    },
     commentImage: {
-        maxWidth: 50,
+        maxWidth: '100%',
         maxHeight: 50,
         objectFit: 'cover',
         borderRadius: '50%',
@@ -22,8 +26,12 @@ const Styles = makeStyles(theme =>({
     visibleSeparator: {
         width: '100%',
         borderBottom: '1px solid rgba(0,0,0,0.1)',
-        marginBottom: 20,
+        marginBottom: 15,
     },
+    breakLine: {
+        marginBottom: 0,
+        color: '#fa2345',
+    }
 
 }));
 
@@ -37,8 +45,8 @@ function Comment(props) {
                 const {userHandle, body, userImage, createdAt}=comment;
                 return (
                     <Fragment key={createdAt}>
-                        <Grid item sm = {12}>
-                        <Grid container>
+                        <Grid className={classes.mainGrid} item sm = {12}>
+                        <Grid container spacing={2} justify="space-evenly">
                          <Grid item sm={2} xs={2}>
                              <img src={userImage} alt='comment' className={classes.commentImage}/>
                         </Grid>
@@ -50,15 +58,17 @@ function Comment(props) {
                             <Typography variant="body2" color="textSecondary">
                             {dayjs(createdAt).format(`h:mm a, MMMM DD YYYY`)}
                             </Typography>
-                            <hr className={classes.invisibleSeparator} />
-                            <Typography variant="body2">
+                            {/*<hr className={classes.invisibleSeparator} />*/}
+                            
+                            <Typography variant="body2" >
                                 {body}
                             </Typography>
                             </div>
                         </Grid>  
-                        </Grid>  
                         </Grid>
-                       {index !== comments.length - 1 && (<hr className={classes.visibleSeparator} />)} 
+                        {index !== comments.length - 1 && (<hr className={classes.visibleSeparator} />)}   
+                        </Grid>
+                      
                     </Fragment>
                 )
             })}

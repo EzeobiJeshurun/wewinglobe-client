@@ -13,8 +13,8 @@ import {deleteWeshout} from '../../redux/actions/dataActions';
 const Styles = makeStyles(theme=>({
     deleteButton: {
         position: 'absolute',
-        left: '90%',
-        top: '10%'
+        left: '85%',
+        top: '3%'
     }
 
 }));

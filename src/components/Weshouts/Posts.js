@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,9 +36,9 @@ const useStyles = makeStyles(theme=>({
         
     },
     image: {
-        minWidth: 300,
+        minWidth: 250,
         minHeight: 300,
-        //objectFit: "cover"
+        objectFit: 'cover'
 
     }
 
@@ -50,10 +50,9 @@ function Posts(props) {
     dayjs.extend(relativeTime);
 
   
-    const deleteButton= authenticated && handle === userHandle? (
-    <Tooltip title="delete post" placement="top"> 
-        <DeleteWeshout weshoutId={weshoutId}/>
-    </Tooltip>) : null;
+    const deleteButton= authenticated && handle === userHandle? (<Fragment>
+        <DeleteWeshout weshoutId={weshoutId}/> </Fragment>
+    ) : null;
     return (
        <Card className={classes.card}>
            <CardMedia image={userImage} title="user profile image" className={classes.image} />

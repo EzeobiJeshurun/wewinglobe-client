@@ -16,7 +16,7 @@ const Styles = makeStyles(theme =>({
         textAlign: 'center',
     },
     textField: {
-
+        marginBottom: 5,
     },
     button: {
 
@@ -36,10 +36,16 @@ const [body, setBody] = useState("");
 const [newerror, setNewerror] = useState({error: ""});
 const handleFormSubmit = (event)=>{
     event.preventDefault();
-    const commentData = {
-        body: body,
-    };
-    props.createComment(weshoutId,commentData);
+    if(body ===""){
+        setNewerror({error: "the comment must not be empty"});
+    }else{
+        const commentData = {
+            body: body,
+        };
+        props.createComment(weshoutId,commentData);
+        setBody("");
+    }
+    
 };
 
 const controlErrors = useMemo(()=>{
@@ -52,12 +58,12 @@ const controlErrors = useMemo(()=>{
         
         <Grid item sm={12} className={classes.parentItemGrid}>
         <form onSubmit={(event)=>{
-
+            handleFormSubmit(event);
         }}  >
             <TextField className={classes.textField} name="body" type="text" label="Comment on post"  onFocus={()=>{
                 setNewerror({error: ""});
             }}
-            multiline rows={3} value={body}
+             value={body}
              onChange={(event)=>{
                  setBody(event.target.value);
              }}  error= {newerror.error? true: false} helperText={newerror.error} fullWidth>
@@ -65,7 +71,7 @@ const controlErrors = useMemo(()=>{
 
             </TextField>
             <Button type="submit" className={classes.button} variant="contained" color="primary">
-             Post
+             comment
             </Button>
         </form> 
         <hr className={classes.visibleSeparator} />   

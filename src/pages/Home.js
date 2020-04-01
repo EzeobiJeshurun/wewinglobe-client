@@ -16,14 +16,17 @@ import {connect} from 'react-redux';
 const useStyles = makeStyles(theme=>({
     root: {
         display: 'flex',
-        
+        margin: '0px auto 0px auto',
         height: '100vh',
-        margin: 0,
+        boxSizing: 'border-box',
         background: theme.palette.myextra.main,
         flexDirection: 'row-reverse',
         [theme.breakpoints.down('xs')]:{
            flexDirection: 'row'
         }
+    },
+    lowerGrid: {
+        margin: '0px auto 0px auto',
     }
 
 }));
@@ -48,11 +51,11 @@ function Home(props) {
 
 let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<p>loading...</p>);
     return (
-        <Grid container className={classes.root} spacing={4}>
-            <Grid item sm={4} xs={12}>
+        <Grid container className={classes.root} spacing={2}>
+            <Grid item sm={4} className={classes.lowerGrid} xs={11}>
                 <Profile />
         </Grid>
-        <Grid item sm={8} xs={12}>
+        <Grid item sm={8} xs={11} className={classes.lowerGrid}>
                 {recentScreamsMarkup}
             </Grid>
         </Grid>

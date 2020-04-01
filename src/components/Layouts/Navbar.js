@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme=>({
     navContainer:{
         margin: 'auto',
         [theme.breakpoints.down('xs')]:{
-        
+        //position: 'sticky'|'-webkit-sticky',
         }
     },
     afterAuthButton:{

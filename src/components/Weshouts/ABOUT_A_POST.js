@@ -33,7 +33,7 @@ const Styles = makeStyles(theme=>({
         margin: 4,
     },
     profileImage: {
-        maxWidth: 200,
+        maxWidth: '100%',
         maxHeight: 200,
         borderRadius: '50%',
         objectFit: 'cover',
@@ -44,10 +44,14 @@ const Styles = makeStyles(theme=>({
     closeButton:{
         position: 'absolute',
         left: '90%',
+        [theme.breakpoints.down('xs')]:{
+            left: '80%',
+        },
     },
     showButton: {
         position: 'absolute',
-        left: '90%'
+        left: '84%',
+    
     },
     spinnerDiv:{
         textAlign: 'center',
@@ -79,12 +83,12 @@ const handleClose=()=>{
 };
 
 const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularProgress thickness={2} size={200}/></div>):(
-<Grid container spacing={4} >
-    <Grid item sm={5}>
+<Grid container spacing={4} justify="center">
+    <Grid item sm={5} xs={12}>
         <img src={userImage} alt="profile" className={classes.profileImage}/>
 
     </Grid>
-    <Grid item sm={7}>
+    <Grid item sm={7} xs={12}>
         <Typography component={Link} to={`/users/${userHandle}`} color="primary" variant="h6" >
         @{userHandle}
         </Typography>
