@@ -1,4 +1,4 @@
-import React, {Fragment, useMemo} from 'react';
+import React, {Fragment} from 'react';
 
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
