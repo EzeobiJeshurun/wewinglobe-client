@@ -134,6 +134,7 @@ const myTheme =()=>{
           <AuthRoute exact path="/signup" component={Signup} />
           <Route exact path="/changePassword" component={ChangePassword}/>
           <Route exact path="/users/:handle" component= {USER} />
+          <Route exact path="/users/:handle/weshout/:weshoutid" component={USER} />
         </Switch>
         </div>
       </Router>

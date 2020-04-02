@@ -39,9 +39,14 @@ const [profile, setProfile]= useState({});
 //const handleChangeInUser = useMemo(()=>{
  //   setThePost(aboutOneUser);
 //},[aboutOneUser]);
+const [weshoutIdParams, setWeshoutIdParams] = useState("");
 
 useEffect(()=>{
     const handle = match.params.handle;
+    const newWeshoutId = match.params.weshoutId;
+    if(newWeshoutId){
+        setWeshoutIdParams(newWeshoutId);
+    }
     getUserFunction(handle);
     axios.get(`/user/${handle}`)
     .then((res)=>{
@@ -49,20 +54,28 @@ useEffect(()=>{
     }).catch((err)=>{
 
     });
-},[getUserFunction,match.params.handle]);
+},[getUserFunction,match.params.handle,match.params.weshoutId]);
 
 const userWeshoutMarkup = loading? (<div>loading posts....</div>) : aboutOneUser === []? (//displays if no user found
     <Fragment>
 <div>No post found</div>
     </Fragment>
-):(// displays if user has posts
+): !weshoutIdParams? (// displays if user has posts
    aboutOneUser.map(onepost => <Posts key={onepost.weshoutId} onepost={onepost} />)
-);
+):(
+    aboutOneUser.map(onepost=>{
+        if(onepost.weshoutId !== weshoutIdParams){
+            return <Posts key={onepost.weshoutId} onepost={onepost} />
+        }else{
+            return <Posts key={onepost.weshoutId} onepost={onepost} openDialog/>
+        }
+    })
+)
     return (
         <Fragment>
              <Grid container className={classes.root} spacing={2}>
             <Grid item sm={4} className={classes.lowerGrid} xs={11}>
-                <StaticProfile profile={profile} />
+              {profile=== {}? (<div>Loading Profile</div>):(<Fragment><StaticProfile profile={profile} /></Fragment>)}  
         </Grid>
         <Grid item sm={8} xs={11} className={classes.lowerGrid}>
                 {userWeshoutMarkup}
