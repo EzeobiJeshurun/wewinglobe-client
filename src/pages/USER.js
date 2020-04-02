@@ -45,7 +45,7 @@ aboutOneUser.map(onepost => <Posts key={onepost.weshoutId} info={onepost} />)
         <Fragment>
              <Grid container className={classes.root} spacing={2}>
             <Grid item sm={4} className={classes.lowerGrid} xs={11}>
-                <StaticProfile />
+                <StaticProfile profile={profile} />
         </Grid>
         <Grid item sm={8} xs={11} className={classes.lowerGrid}>
                 {userWeshoutMarkup}
