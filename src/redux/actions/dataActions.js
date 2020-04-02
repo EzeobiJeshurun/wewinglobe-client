@@ -128,14 +128,16 @@ export const getSpecificUserDetails = (userHandle) =>(dispatch)=>{
     });
     axios.get(`/user/${userHandle}`)
     .then((res)=>{
-        dispatch({
-            type: DETAILS_OF_A_USER,
-            payload: res.data.weshout,
-        });
+       dispatch({
+           type: DETAILS_OF_A_USER,
+          payload: res.data.weshout,
+       });
+        console.log(res.data);
     }).catch((err)=>{
-        dispatch({
-            type: DETAILS_OF_A_USER,
-            payload: null,
-        });
+       // dispatch({
+         //   type: DETAILS_OF_A_USER,
+        //    payload: [],
+       // });
+        console.log(err.response.data);
     });
 };

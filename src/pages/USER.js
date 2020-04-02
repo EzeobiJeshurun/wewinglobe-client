@@ -10,18 +10,35 @@ import {connect} from 'react-redux';
 import {getSpecificUserDetails} from '../redux/actions/dataActions';
 
 const useStyles = makeStyles(theme =>({
-    
+    root: {
+        display: 'flex',
+        margin: '0px auto 0px auto',
+        height: '100vh',
+        boxSizing: 'border-box',
+        background: theme.palette.myextra.main,
+       // flexDirection: 'row-reverse',
+        [theme.breakpoints.down('xs')]:{
+          // flexDirection: 'row'
+        }
+    },
+    lowerGrid: {
+        margin: '0px auto 0px auto',
+    }
 }));
 
 function USER(props) {
     
 const {aboutOneUser, loading} = props.data;    
 const match = props.match; 
-const getUserFunction = props.getSpecificUserDetails; 
+const getUserFunction = props.getSpecificUserDetails;
+     
 const classes = useStyles();  
 const [profile, setProfile]= useState({});
 
-
+//const [thePost, setThePost] = useState([]);
+//const handleChangeInUser = useMemo(()=>{
+ //   setThePost(aboutOneUser);
+//},[aboutOneUser]);
 
 useEffect(()=>{
     const handle = match.params.handle;
@@ -34,12 +51,12 @@ useEffect(()=>{
     });
 },[getUserFunction,match.params.handle]);
 
-const userWeshoutMarkup = loading? (<div>loading posts....</div>) : aboutOneUser === null? (//displays if no user found
+const userWeshoutMarkup = loading? (<div>loading posts....</div>) : aboutOneUser === []? (//displays if no user found
     <Fragment>
 <div>No post found</div>
     </Fragment>
 ):(// displays if user has posts
-aboutOneUser.map(onepost => <Posts key={onepost.weshoutId} info={onepost} />)
+   aboutOneUser.map(onepost => <Posts key={onepost.weshoutId} onepost={onepost} />)
 );
     return (
         <Fragment>

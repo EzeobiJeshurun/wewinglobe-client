@@ -8,7 +8,7 @@ const initialState = {
     singlePost: {},
     commentErrors: {errors: ""},
     commentResponse: {},
-    aboutOneUser: {},
+    aboutOneUser: [],
 };
 
 
