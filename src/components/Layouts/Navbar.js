@@ -11,7 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
+import Notifications from './Notifications';
 import AddPost from '../Weshouts/AddPost';
 
 const useStyles = makeStyles(theme=>({
@@ -48,11 +48,8 @@ function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
                     </IconButton>
                     </Tooltip>
                     </Link>
-                    <Tooltip title="notifications" placement="top">
-                    <IconButton>
-                        <Notifications className={classes.afterAuthButton}/>
-                    </IconButton>
-                    </Tooltip>
+                 <Notifications />
+    
                 </Fragment>):(
                     <Fragment>
                     <Button color="inherit" component={Link} to="/">Home</Button>

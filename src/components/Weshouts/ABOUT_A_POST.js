@@ -73,14 +73,25 @@ function ABOUT_A_POST(props) {
 const classes = Styles();
 
 const [open, setOpen] = useState(false);
+const [oldPath,setOldPath] = useState("");
 const getOnePostFunction = props.getOnePost;
 const handleOpen=useCallback(()=>{
+ let oldWindowsPath = window.location.pathname;
+    setOldPath(oldWindowsPath);
+ //how to make the url display different routes for different posts
+
+ const newPath = `/users/${postHandle}/weshout/${postId}`;
+ if(oldWindowsPath === newPath){
+    setOldPath(`/users/${postHandle}`);
+ }
+ window.history.pushState(null,null, newPath);
  setOpen(true);
  getOnePostFunction(postId);
-},[getOnePostFunction,postId]);
+},[getOnePostFunction,postId,postHandle]);
 
 const handleClose=()=>{
     setOpen(false);
+    window.history.pushState(null,null, oldPath);
 };
 
 
