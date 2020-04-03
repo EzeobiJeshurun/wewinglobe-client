@@ -98,6 +98,7 @@ export default function (state= initialState, actions){
             return {
                 ...state,
                 aboutOneUser: actions.payload,
+                
                 loading: false,
             };    
 

@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme =>({
 
 function USER(props) {
     
-const {aboutOneUser, loading} = props.data;    
+const {aboutOneUser, weshouts, loading} = props.data;    
 const match = props.match; 
 const getUserFunction = props.getSpecificUserDetails;
      
@@ -60,17 +60,11 @@ const userWeshoutMarkup = loading? (<div>loading posts....</div>) : aboutOneUser
     <Fragment>
 <div>No post found</div>
     </Fragment>
-): !weshoutIdParams? (// displays if user has posts
-   aboutOneUser.map(onepost => <Posts key={onepost.weshoutId} onepost={onepost} />)
-):(
-    aboutOneUser.map(onepost=>{
-        if(onepost.weshoutId !== weshoutIdParams){
-            return <Posts key={onepost.weshoutId} onepost={onepost} />
-        }else{
-            return <Posts key={onepost.weshoutId} onepost={onepost} openDialog/>
-        }
-    })
-)
+): (// displays if user has posts
+   aboutOneUser.map(onepost => <Posts key={onepost.weshoutId} onepost={onepost} />
+    )
+);
+
     return (
         <Fragment>
              <Grid container className={classes.root} spacing={2}>

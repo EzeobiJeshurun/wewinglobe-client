@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useMemo} from 'react';
+import React, {Fragment, useState,useEffect, useCallback} from 'react';
 import{Link } from  'react-router-dom';
 import dayjs from 'dayjs';
 import {makeStyles} from '@material-ui/core';
@@ -73,14 +73,16 @@ function ABOUT_A_POST(props) {
 const classes = Styles();
 
 const [open, setOpen] = useState(false);
-const handleOpen=()=>{
+const getOnePostFunction = props.getOnePost;
+const handleOpen=useCallback(()=>{
  setOpen(true);
- props.getOnePost(postId);
-};
+ getOnePostFunction(postId);
+},[getOnePostFunction,postId]);
 
 const handleClose=()=>{
     setOpen(false);
 };
+
 
 const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularProgress thickness={2} size={200}/></div>):(
 <Grid container spacing={4} justify="center">

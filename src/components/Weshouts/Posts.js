@@ -70,7 +70,7 @@ function Posts(props) {
                     </IconButton>
                 </Tooltip>
                 <span>{commentCount}comment</span>
-                <ABOUT_A_POST postHandle={userHandle} postId = {weshoutId}/>
+                <ABOUT_A_POST postHandle={userHandle} postId = {weshoutId} />
            </CardContent>
        </Card>
     )

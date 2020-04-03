@@ -29,13 +29,20 @@ const Styles = makeStyles(theme =>({
     closeButton:{
         position: 'absolute',
         left: '90%',
-        top: '4%'
+        top: '4%',
+        [theme.breakpoints.down('xs')]:{
+            left: '85%'
+        },
     },
     submitButton:{
         position: 'relative',
         marginTop: '4%',
         marginBottom: '3%',
-        left: '80%'
+        left: '80%',
+        [theme.breakpoints.down('xs')]:{
+            left: '60%',
+            
+        },
     },
     spinner:{
         position: 'absolute',
@@ -58,7 +65,12 @@ function AddPost(props) {
 
     const addNewPost = (event)=>{
         event.preventDefault();
-        props.postWeshout({body: body});
+        if(body === ""){
+            setError({error:"Post must not be empty"});
+        }else{
+            props.postWeshout({body: body});
+        }
+        
         
     };
     
