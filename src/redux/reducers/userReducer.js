@@ -1,4 +1,4 @@
-import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SET_UNAUTHENTICATED, UNLIKE_WESHOUT, SET_AUTHENTICATED, LOADING_USER,LIKE_WESHOUT} from '../types';
+import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,MARK_NOTIFICATIONS_READ,SET_UNAUTHENTICATED, UNLIKE_WESHOUT, SET_AUTHENTICATED, LOADING_USER,LIKE_WESHOUT} from '../types';
 import { CardActions } from '@material-ui/core';
 
 const initialState = {
@@ -48,7 +48,15 @@ export default function(state= initialState, action){
               return {
                 ...state,
                 likes: state.likes.filter(like => like.weshoutId !== action.payload.weshoutId),
-              };  
+              };
+        
+         case   MARK_NOTIFICATIONS_READ:
+             state.notifications.forEach((not)=>
+                (not.read = true)
+             );
+             return {
+                ...state,
+             };      
 
         default:
             return state;    

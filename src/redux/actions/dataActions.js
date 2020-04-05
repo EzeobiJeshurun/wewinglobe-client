@@ -1,5 +1,5 @@
 import {SET_WESHOUTS, LOADING_DATA,LOADING_UI,POST_WESHOUT,POST_ERRORS,
-    A_SINGLE_POST, LIKE_WESHOUT, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT,DETAILS_OF_A_USER, SET_WESHOUT_ERROR, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
+    A_SINGLE_POST, LIKE_WESHOUT,MARK_NOTIFICATIONS_READ, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT,DETAILS_OF_A_USER, SET_WESHOUT_ERROR, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
 import axios from 'axios';
 
 export const getWeshouts = ()=>(dispatch)=>{
@@ -88,7 +88,22 @@ export const unlikeWeshout =(weshoutId)=>(dispatch)=>{
         console.log(err);
     });
 };
+//fuctions to change notification status to read
+export const markNotificationsRead = (anArrayOfNotificationIds)=>(dispatch)=>{
+    if(anArrayOfNotificationIds.body.length >0){
 
+   
+        axios.post('notifications', anArrayOfNotificationIds)
+    .then((res)=>{
+        dispatch({
+            type: MARK_NOTIFICATIONS_READ,
+        });
+    }).catch((err)=>{
+        console.log(err);
+    });
+}
+    
+};
 export const deleteWeshout = (weshoutId) =>(dispatch)=>{
     axios.delete(`/weshout/${weshoutId}`)
     .then(()=>{

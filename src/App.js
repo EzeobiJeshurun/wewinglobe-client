@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ChangePassword from './pages/ChangePassword';
 import USER from './pages/USER';
+import ViewPostsFromRoute from './pages/ViewPostsFromRoute';
+
 //components
 import Navbar from './components/Layouts/Navbar';
 import jwtDecode from 'jwt-decode';
@@ -134,7 +136,7 @@ const myTheme =()=>{
           <AuthRoute exact path="/signup" component={Signup} />
           <Route exact path="/changePassword" component={ChangePassword}/>
           <Route exact path="/users/:handle" component= {USER} />
-          
+          <Route exact path="/users/:handle/weshout/:weshoutId" component={ViewPostsFromRoute}/>
         </Switch>
         </div>
       </Router>

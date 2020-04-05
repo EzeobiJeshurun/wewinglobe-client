@@ -100,11 +100,8 @@ export default function (state= initialState, actions){
                 aboutOneUser: actions.payload,
                 
                 loading: false,
-            };    
-
-
-                
-            
+            }; 
+        
         default:   
             return state;
     }
