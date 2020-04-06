@@ -1,6 +1,7 @@
 import React,{useState, Fragment, useEffect, useMemo} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core';
+import WeshoutSkeleton from '../util/WeshoutSkeleton';
 
 import axios from 'axios';
 import Posts from '../components/Weshouts/Posts';
@@ -56,7 +57,7 @@ useEffect(()=>{
     });
 },[getUserFunction,match.params.handle,match.params.weshoutId]);
 
-const userWeshoutMarkup = loading? (<div>loading posts....</div>) : aboutOneUser === []? (//displays if no user found
+const userWeshoutMarkup = loading? (<div><WeshoutSkeleton/></div>) : aboutOneUser === []? (//displays if no user found
     <Fragment>
 <div>No post found</div>
     </Fragment>

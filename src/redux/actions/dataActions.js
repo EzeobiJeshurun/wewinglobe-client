@@ -90,10 +90,10 @@ export const unlikeWeshout =(weshoutId)=>(dispatch)=>{
 };
 //fuctions to change notification status to read
 export const markNotificationsRead = (anArrayOfNotificationIds)=>(dispatch)=>{
-    if(anArrayOfNotificationIds.body.length >0){
-
+    if(anArrayOfNotificationIds.length > 0){
+        console.log("hello");
    
-        axios.post('notifications', anArrayOfNotificationIds)
+        axios.post('/notifications', anArrayOfNotificationIds)
     .then((res)=>{
         dispatch({
             type: MARK_NOTIFICATIONS_READ,
@@ -101,7 +101,9 @@ export const markNotificationsRead = (anArrayOfNotificationIds)=>(dispatch)=>{
     }).catch((err)=>{
         console.log(err);
     });
-}
+    }
+       
+
     
 };
 export const deleteWeshout = (weshoutId) =>(dispatch)=>{

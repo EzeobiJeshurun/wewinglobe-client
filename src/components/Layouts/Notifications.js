@@ -1,4 +1,4 @@
-import React,{useState,Fragment,useMemo} from 'react';
+import React,{useState,Fragment,useMemo,useCallback} from 'react';
 import dayjs from 'dayjs';
 import {Link} from 'react-router-dom';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -25,11 +25,12 @@ const useStyles = makeStyles(theme=>({
 
 
 function Notifications(props) {
+
 const classes= useStyles();    
 const {notifications,}= props;
 const [newNotifNumber, setNewNotifNumber] = useState("");
 const [anchorEl, setAnchorEl] = useState(null);
-
+const FunctionToSendMarkRead = props.markNotificationsRead;
 const handleOpen=(event)=>{
     setAnchorEl(event.target);
 };
@@ -37,14 +38,15 @@ const handleClose =()=>{
     setAnchorEl(null);
 };
 
-const onMenuOpened = ()=>{
-let unreadNotifications = notifications.filter((not)=>
-    not.read === "false");
-let arrayOfNotificationId =   unreadNotifications.map(not=> not.notificationId );
-let changeToRead = {body: arrayOfNotificationId};
-props.markNotificationsRead(changeToRead);
+const onMenuOpened =useCallback( ()=>{
+let unreadNotifications = notifications.filter(not=> not.read === false );
 
-};
+let arrayOfNotificationId =   unreadNotifications.map(not=> not.notificationId );
+FunctionToSendMarkRead(arrayOfNotificationId);
+console.log(arrayOfNotificationId);
+ 
+
+},[notifications,FunctionToSendMarkRead]);
 
 let notificationIcon;
 
@@ -59,8 +61,8 @@ let notificationAutoControl = useMemo(()=>{
 
 if(notifications && notifications.length>0){
 
-    let NotificationsCount =  notifications.filter(not => not.read === false).length;
-   NotificationsCount > 0 ? notificationIcon = (<Badge badgeContent={newNotifNumber} color="secondary">
+    //let NotificationsCount =  notifications.filter(not => not.read === false).length;
+   newNotifNumber > 0 ? notificationIcon = (<Badge badgeContent={newNotifNumber} color="secondary">
        <NotificationsIcon className={classes.notifButton}/>
    </Badge>):notificationIcon =<NotificationsIcon className={classes.notifButton}/>;
   
@@ -82,7 +84,7 @@ if(notifications && notifications.length>0){
                     handleClose();
                 }}   key={not.createdAt} > 
                 {icon}
-                <Typography component={Link} color="default" 
+                <Typography component={Link} 
                 variant="body2" to={`/users/${not.recipient}/weshout/${not.weshoutId}`}>
                     {not.sender} {verb} your post {time} 
                 </Typography>
@@ -109,11 +111,12 @@ if(notifications && notifications.length>0){
                 {notificationIcon}
             </IconButton  >
             </Tooltip>
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>{
+            <Menu anchorEl={anchorEl}  open={Boolean(anchorEl)} onClose={()=>{
                 handleClose();
             }} onEntered={()=>{
+                setNewNotifNumber("");
                 onMenuOpened();
-            }}  elevation={5}
+            }}  elevation={0}
             getContentAnchorEl={null}
             anchorOrigin={{
               vertical: 'bottom',
