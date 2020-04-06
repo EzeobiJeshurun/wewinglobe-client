@@ -12,6 +12,8 @@ import Profile   from '../components/Profile/Profile';
 import {makeStyles} from '@material-ui/core';
 import {getWeshouts} from '../redux/actions/dataActions';
 import {connect} from 'react-redux';
+import WeshoutSkeleton from '../util/WeshoutSkeleton';
+
 
 const useStyles = makeStyles(theme=>({
     root: {
@@ -49,7 +51,7 @@ function Home(props) {
        
     },[getAllposts]);
 
-let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<p>loading...</p>);
+let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<div><WeshoutSkeleton/></div>);
     return (
         <Grid container className={classes.root} spacing={2}>
             <Grid item sm={4} className={classes.lowerGrid} xs={11}>

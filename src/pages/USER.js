@@ -2,6 +2,7 @@ import React,{useState, Fragment, useEffect, useMemo} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core';
 import WeshoutSkeleton from '../util/WeshoutSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
 
 import axios from 'axios';
 import Posts from '../components/Weshouts/Posts';
@@ -70,7 +71,7 @@ const userWeshoutMarkup = loading? (<div><WeshoutSkeleton/></div>) : aboutOneUse
         <Fragment>
              <Grid container className={classes.root} spacing={2}>
             <Grid item sm={4} className={classes.lowerGrid} xs={11}>
-              {profile=== {}? (<div>Loading Profile</div>):(<Fragment><StaticProfile profile={profile} /></Fragment>)}  
+              {profile=== {}? (<div><ProfileSkeleton/></div>):(<Fragment><StaticProfile profile={profile} /></Fragment>)}  
         </Grid>
         <Grid item sm={8} xs={11} className={classes.lowerGrid}>
                 {userWeshoutMarkup}
