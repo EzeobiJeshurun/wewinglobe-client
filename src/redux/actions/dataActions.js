@@ -1,6 +1,7 @@
 import {SET_WESHOUTS, LOADING_DATA,LOADING_UI,POST_WESHOUT,POST_ERRORS,
-    A_SINGLE_POST, LIKE_WESHOUT,MARK_NOTIFICATIONS_READ, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT,DETAILS_OF_A_USER, SET_WESHOUT_ERROR, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
+    A_SINGLE_POST, LIKE_WESHOUT,MARK_NOTIFICATIONS_READ,CLEAR_NETWORK_ERROR,NETWORK_ERROR_OR_PROBLEM, UNLIKE_WESHOUT,CLEAR_POSTERRORS,STOP_UI_LOADING,CREATE_COMMENT,DETAILS_OF_A_USER, DELETE_WESHOUT, COMMENT_ERRORS} from '../types';
 import axios from 'axios';
+
 
 export const getWeshouts = ()=>(dispatch)=>{
     dispatch({type: LOADING_DATA});
@@ -12,7 +13,15 @@ export const getWeshouts = ()=>(dispatch)=>{
         });
     })
     .catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+        
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
        // dispatch({
         //    type: SET_WESHOUTS,
         //    payload: []
@@ -34,12 +43,21 @@ export const postWeshout =(userPost)=>(dispatch)=>{
             payload: {error: ""}
         });
     }).catch((err)=>{
-        dispatch({
-            type: POST_ERRORS,
-            payload: err.response.data
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+            dispatch({
+                type: POST_ERRORS,
+                payload: err.response.data
+    
+            });
+  
+        }else{
 
-        });
-        console.log(err);
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
+        
+        
     });
 };
 //get the details of a single post
@@ -55,7 +73,15 @@ export const getOnePost = (weshoutId)=>(dispatch)=>{
             type: STOP_UI_LOADING
         });
     }).catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+        
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
     });
 
 };
@@ -71,7 +97,16 @@ export const likeWeshout =(weshoutId)=>(dispatch)=>{
         });
     })
     .catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+        
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
+        
     });
 };
 
@@ -85,13 +120,21 @@ export const unlikeWeshout =(weshoutId)=>(dispatch)=>{
         });
     })
     .catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+            
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
     });
 };
 //fuctions to change notification status to read
 export const markNotificationsRead = (anArrayOfNotificationIds)=>(dispatch)=>{
     if(anArrayOfNotificationIds.length > 0){
-        console.log("hello");
+        
    
         axios.post('/notifications', anArrayOfNotificationIds)
     .then((res)=>{
@@ -99,7 +142,15 @@ export const markNotificationsRead = (anArrayOfNotificationIds)=>(dispatch)=>{
             type: MARK_NOTIFICATIONS_READ,
         });
     }).catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+            
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
     });
     }
        
@@ -113,7 +164,15 @@ export const deleteWeshout = (weshoutId) =>(dispatch)=>{
                    payload: weshoutId});
     })
     .catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+            
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
     });
 };
 //function that handles comment submission
@@ -129,11 +188,20 @@ export const createComment = (weshoutId,commentData)=>(dispatch)=>{
         });
         
     }).catch((err)=>{
-        dispatch({
-            type: COMMENT_ERRORS,
-            payload: err.response.data,
-        });
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+            dispatch({
+                type: COMMENT_ERRORS,
+                payload: err.response.data,
+            });
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
+       
+        
     });
 
 };
@@ -149,12 +217,26 @@ export const getSpecificUserDetails = (userHandle) =>(dispatch)=>{
            type: DETAILS_OF_A_USER,
           payload: res.data.weshout,
        });
-        console.log(res.data);
+        
     }).catch((err)=>{
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+
+  
+        }else{
+
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM, });
+         }
+       
        // dispatch({
          //   type: DETAILS_OF_A_USER,
         //    payload: [],
        // });
-        console.log(err.response.data);
+        
     });
+};
+
+export const clearNetworkError = ()=>(dispatch)=>{
+    dispatch({type: CLEAR_NETWORK_ERROR,});
 };

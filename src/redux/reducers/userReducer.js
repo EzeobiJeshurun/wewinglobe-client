@@ -1,12 +1,13 @@
-import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,MARK_NOTIFICATIONS_READ,SET_UNAUTHENTICATED, UNLIKE_WESHOUT, SET_AUTHENTICATED, LOADING_USER,LIKE_WESHOUT} from '../types';
-import { CardActions } from '@material-ui/core';
+import {SET_USER, MARK_NOTIFICATIONS_READ,SET_UNAUTHENTICATED,CLEAR_NETWORK_ERROR, NETWORK_ERROR_OR_PROBLEM, UNLIKE_WESHOUT, SET_AUTHENTICATED, LOADING_USER,LIKE_WESHOUT} from '../types';
+
 
 const initialState = {
     loading: false,
     authenticated: false,
     credentials: {},
     likes: [],
-    notifications: []
+    notifications: [],
+    networkError: false,
 };
 
 
@@ -57,7 +58,19 @@ export default function(state= initialState, action){
              return {
                 ...state,
              };      
-
+        case NETWORK_ERROR_OR_PROBLEM:
+             return {
+                     ...state,
+                    networkError: true,
+                    loading:false,
+                    };         
+        case CLEAR_NETWORK_ERROR:
+            return {
+                ...state,
+                networkError: false,
+                loading:false,
+            };
+            
         default:
             return state;    
             

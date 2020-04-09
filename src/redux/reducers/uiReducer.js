@@ -1,5 +1,5 @@
 
-import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS,POST_WESHOUT, STOP_UI_LOADING,SIGNUP_ERRORS,POST_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P, CLEAR_POSTERRORS} from '../types';
+import {SET_ERRORS, LOADING_UI, CLEAR_ERRORS,CLEAR_NETWORK_ERROR,NETWORK_ERROR_OR_PROBLEM, STOP_UI_LOADING,SIGNUP_ERRORS,POST_ERRORS, RESET_ERROR, LOADING_EUI, RESET_P, CLEAR_POSTERRORS} from '../types';
 
 const initialState = {
     loading: false,
@@ -10,7 +10,8 @@ const initialState = {
     reset: {message: ""},
     resetE: {error: ""},
     loadingR: false,
-    postError: {error: ""}
+    postError: {error: ""},
+    networkError: false,
 };
 
 export default function(state=initialState,action){
@@ -81,7 +82,23 @@ export default function(state=initialState,action){
             return {
                 ...state,
                 loading: false,
-            };    
+            };
+            
+     case NETWORK_ERROR_OR_PROBLEM:
+             return {
+                     ...state,
+                    networkError: true,
+                    loading:false,
+                    loadingR:false,
+            };
+    
+    case CLEAR_NETWORK_ERROR:
+        return{
+            ...state,
+            networkError: false,
+            loading:false,
+            loadingR:false,
+        };       
                 
         default:
             return state;

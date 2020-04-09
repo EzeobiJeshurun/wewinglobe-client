@@ -1,14 +1,14 @@
-import React, {Fragment, useState,useEffect, useCallback} from 'react';
+import React, {Fragment, useState, useCallback} from 'react';
 import{Link } from  'react-router-dom';
 import dayjs from 'dayjs';
 import {makeStyles} from '@material-ui/core';
 //material UI
 import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
+
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
 import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -49,8 +49,10 @@ const Styles = makeStyles(theme=>({
         },
     },
     showButton: {
+        
         position: 'absolute',
         left: '85%',
+        
     
     },
     spinnerDiv:{
@@ -63,11 +65,15 @@ const Styles = makeStyles(theme=>({
         borderBottom: '1px solid rgba(0,0,0,0.1)',
         marginBottom: 20,
     },
+    accountCircle:{
+        size: '30px',
+    },
+
 
 }));
 
 function ABOUT_A_POST(props) {
-    const {postId, postHandle, 
+    const {postId, postHandle,
         UI: {loading}, 
         data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body, comments }} }= props;
 const classes = Styles();
@@ -88,7 +94,6 @@ const handleOpen=useCallback(()=>{
  setOpen(true);
  getOnePostFunction(postId);
 },[getOnePostFunction,postId,postHandle]);
-
 const handleClose=()=>{
     setOpen(false);
     window.history.pushState(null,null, oldPath);
@@ -102,8 +107,13 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
 
     </Grid>
     <Grid item sm={7} xs={12}>
+        <Tooltip title= "view profile" placement="top" >
+        <IconButton component={Link} to={`/users/${userHandle}`} >
+            <AccountCircle className={classes.accountCircle} color="action"/>
+        </IconButton>
+        </Tooltip>
         <Typography component={Link} to={`/users/${userHandle}`} color="primary" variant="h6" >
-        @{userHandle}
+        @{userHandle} 
         </Typography>
         <hr className={classes.invinsibleSeparator} />
         <Typography variant="body2" color="textSecondary">
@@ -130,7 +140,8 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
 </Grid>
 );
     return (
-        <Fragment>
+        <Fragment className={classes.ocuppyAllSpace}>
+             
             <Tooltip title="view post" placement="top">
             <IconButton onClick={()=>{
                 handleOpen();

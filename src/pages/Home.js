@@ -1,7 +1,8 @@
 import React from 'react';
-import {useState, useEffect, useCallback, useMemo} from 'react';
+import {useState, useEffect,Fragment, useCallback, useMemo} from 'react';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
+import Hidden from '@material-ui/core/Hidden';
+
 import Posts from '../components/Weshouts/Posts';
 import Profile   from '../components/Profile/Profile';
 
@@ -13,28 +14,40 @@ import {makeStyles} from '@material-ui/core';
 import {getWeshouts} from '../redux/actions/dataActions';
 import {connect} from 'react-redux';
 import WeshoutSkeleton from '../util/WeshoutSkeleton';
+import NetworkErrorSnackBar from '../components/Weshouts/NetworkErrorSnackBar';
 
 
 const useStyles = makeStyles(theme=>({
     root: {
+        
         display: 'flex',
         margin: '0px auto 0px auto',
         height: '100vh',
         boxSizing: 'border-box',
         background: theme.palette.myextra.main,
         flexDirection: 'row-reverse',
+    
         [theme.breakpoints.down('xs')]:{
-           flexDirection: 'row'
+           flexDirection: 'row',
+           margin: '0px auto 0px auto'
+           
         }
     },
     lowerGrid: {
         margin: '0px auto 0px auto',
+    },
+    upperGrid: {
+        margin: '0px auto 0px auto',
+    },
+    spacerDiv:{
+        width: '90vw',
+        height: '20px',
     }
 
 }));
 
 function Home(props) {
-  const {data:{weshouts, loading }, getWeshouts}= props;
+  const {data:{weshouts, loading,networkError }, getWeshouts}= props;
     const classes = useStyles();
    
     const [weshout, setWeshout] = useState(false);
@@ -53,14 +66,33 @@ function Home(props) {
 
 let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<div><WeshoutSkeleton/></div>);
     return (
-        <Grid container className={classes.root} spacing={2}>
-            <Grid item sm={4} className={classes.lowerGrid} xs={11}>
+        <Fragment>
+    <Hidden xsDown>
+        <Grid container className={classes.root}  spacing={2}>
+          
+            <Grid item sm={4} className={classes.upperGrid} xs={11}>
                 <Profile />
         </Grid>
         <Grid item sm={8} xs={11} className={classes.lowerGrid}>
                 {recentScreamsMarkup}
             </Grid>
-        </Grid>
+            </Grid>
+       
+    </Hidden>
+    <Hidden smUp>
+    <Grid container className={classes.root}  spacing={0}>
+          
+          <Grid item sm={4} className={classes.upperGrid} xs={11}>
+              <Profile />
+      </Grid>
+      <div className={classes.spacerDiv}></div>
+      <Grid item sm={8} xs={11} className={classes.lowerGrid}>
+              {recentScreamsMarkup}
+          </Grid>
+    </Grid>
+    </Hidden>
+  <NetworkErrorSnackBar snackBarControl={networkError} /> 
+    </Fragment>   
     )
 }
 

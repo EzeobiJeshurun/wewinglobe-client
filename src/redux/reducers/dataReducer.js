@@ -1,4 +1,4 @@
-import {SET_WESHOUTS, LOADING_DATA,A_SINGLE_POST,CREATE_COMMENT,COMMENT_ERRORS,DETAILS_OF_A_USER, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
+import {SET_WESHOUTS, LOADING_DATA,A_SINGLE_POST,CLEAR_NETWORK_ERROR,NETWORK_ERROR_OR_PROBLEM,CREATE_COMMENT,COMMENT_ERRORS,DETAILS_OF_A_USER, LIKE_WESHOUT, UNLIKE_WESHOUT,POST_WESHOUT,CLEAR_CLOSE_ON_RECEIVE, SET_WESHOUT_ERROR, DELETE_WESHOUT} from '../types';
 
 const initialState = {
     weshouts : [],
@@ -9,6 +9,7 @@ const initialState = {
     commentErrors: {errors: ""},
     commentResponse: {},
     aboutOneUser: [],
+    networkError: false,
 };
 
 
@@ -100,7 +101,19 @@ export default function (state= initialState, actions){
                 aboutOneUser: actions.payload,
                 
                 loading: false,
-            }; 
+            };
+        case NETWORK_ERROR_OR_PROBLEM:
+            return {
+                ...state,
+                networkError: true,
+                loading:false,
+            };
+        case CLEAR_NETWORK_ERROR:
+            return {
+                ...state,
+                networkError:false,
+                loading:false,
+            };        
         
         default:   
             return state;

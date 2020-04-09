@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme=>({
     },
     fullLine:{
         height: 15,
-        width: '90%',
+        width: '100%',
         marginBottom: 10,
         backgroundColor: 'rgba(0,0,0,0.6)',
 

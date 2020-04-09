@@ -43,7 +43,7 @@ let unreadNotifications = notifications.filter(not=> not.read === false );
 
 let arrayOfNotificationId =   unreadNotifications.map(not=> not.notificationId );
 FunctionToSendMarkRead(arrayOfNotificationId);
-console.log(arrayOfNotificationId);
+
  
 
 },[notifications,FunctionToSendMarkRead]);

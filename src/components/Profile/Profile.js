@@ -65,6 +65,13 @@ const useStyles = makeStyles(theme=>({
         '& a':{
             margin: '20px 10px'
         }
+    },
+    notAuthBotton:{
+        
+    },
+    notAuthTypo:{
+        
+        fontSize: '14px'
     }
 }));
 
@@ -144,12 +151,12 @@ function Profile(props){
                 </div>
             </Paper>
         ):(<Paper className={classes.paper}>
-            <Typography variant='body2' align="center">Login to view profile</Typography>
+            <Typography variant='body2' className={classes.notAuthTypo} align="center">Login to view profile</Typography>
             <div className={classes.buttons}>
-                <Button color="primary" variant="contained" component ={Link} to='/login'>
+                <Button color="primary" variant="outlined" className={classes.notAuthBotton} component ={Link} to='/login'>
                     Login
                 </Button>
-                <Button color="secondary" variant="contained" component ={Link} to='/signup'>
+                <Button color="primary" variant="contained" className={classes.notAuthBotton} component ={Link} to='/signup'>
                     Signup
                 </Button>
             </div>

@@ -55,7 +55,7 @@ function StaticProfile(props) {
                 </div>
                 <hr/>
                 <div className="profile-detail">
-        <MuiLink component={Link} to={`/user/${handle}`} color = 'primary' variant='h5'>
+        <MuiLink component={Link}  color = 'primary' variant='h5'>
             @{handle}
         </MuiLink>
            <hr/>  

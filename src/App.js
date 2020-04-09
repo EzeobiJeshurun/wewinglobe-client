@@ -19,11 +19,15 @@ import Navbar from './components/Layouts/Navbar';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 
+
 //Redux 
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import {SET_AUTHENTICATED} from './redux/types';
 import {logoutUser, getUserData} from './redux/actions/userActions';
+
+axios.defaults.baseURL = 'https://europe-west2-wecommune-f1e592.cloudfunctions.net/api';
+
 
 const theme1 = createMuiTheme({
   palette:{
@@ -78,7 +82,7 @@ const theme1 = createMuiTheme({
 //Checkes if user is logged in.
 
 const token = localStorage.getItem('FBIdToken');
-console.log(`this is the token ${token}`);
+
 if(token){
   const decodedToken = jwtDecode(token);
   
@@ -97,12 +101,11 @@ if(token){
 
 
 function App() {
-  let authenticated;
+let authenticated;
 const token = localStorage.getItem('FBIdToken');
-console.log(`this is the token ${token}`);
 if(token){
   const decodedToken = jwtDecode(token);
-  console.log(decodedToken);
+  
 
   if(decodedToken.exp * 1000 < Date.now()){
     //window.location. = '/login';

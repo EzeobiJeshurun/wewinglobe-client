@@ -15,12 +15,16 @@ const reducers = combineReducers({
     UI: uiReducer
 });
 
-
+const composeEnhancer =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
 const store = createStore(
     reducers, 
     initialState, 
     compose(
-        applyMiddleware(...middleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+        applyMiddleware(...middleware)
+       // composeEnhancer()
+        ));
 
 export default store;        
+
+//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()   the original, but did't work on mobile when
+//placed after applyMiddleware(...middleware)

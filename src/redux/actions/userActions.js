@@ -1,5 +1,5 @@
-import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SIGNUP_ERRORS, RESET_P,RESET_ERROR, LOADING_EUI,
-    SET_AUTHENTICATED,SET_UNAUTHENTICATED, LOADING_USER} from '../types';
+import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SIGNUP_ERRORS,NETWORK_ERROR_OR_PROBLEM,CLEAR_NETWORK_ERROR, RESET_P,RESET_ERROR, LOADING_EUI,
+    SET_UNAUTHENTICATED, LOADING_USER} from '../types';
 import axios from 'axios';
 
 export const loginUser =(userData, history)=>(dispatch)=>{
@@ -17,11 +17,20 @@ export const loginUser =(userData, history)=>(dispatch)=>{
            history.push('/');
          })
         .catch((err)=>{
+            const checkNetwork = String(err.response);
+            
+            if(checkNetwork !== 'undefined'){
+                dispatch({
+                    type: SET_ERRORS,
+                    payload: err.response.data
+                });
+      
+            }else{
+            dispatch({type:NETWORK_ERROR_OR_PROBLEM});
+             }
+            
         
-            dispatch({
-                type: SET_ERRORS,
-                payload: err.response.data
-            });
+            
         });
           //  console.log(err.response.data);
             
@@ -56,13 +65,21 @@ export const signupUser =(newUserData, history)=>(dispatch)=>{
           
            history.push('/');
          })
-        .catch((err)=>{
-        
-            dispatch({
-                type: SIGNUP_ERRORS,
-                payload: err.response.data
-            });
+        .catch((err)=>{ 
+    const checkNetwork = String(err.response);
+            
+      if(checkNetwork !== 'undefined'){
+        dispatch({
+            type: SIGNUP_ERRORS,
+                 payload: err.response.data
+             });
+
+      }else{
+      dispatch({type:NETWORK_ERROR_OR_PROBLEM});
+       }
+
         });
+           
                
 };
 
@@ -80,7 +97,15 @@ export const getUserData=()=>(dispatch)=>{
     });
     })
     .catch(err=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+        if(checkNetwork !== 'undefined'){
+           
+  
+        }else{
+        dispatch({type:NETWORK_ERROR_OR_PROBLEM,});
+         }
+        
     });
 };
 
@@ -105,7 +130,13 @@ export const uploadImage =(formData)=>(dispatch)=>{
         dispatch(getUserData());
     })
     .catch((err)=>{
-        console.log(err);
+        const checkNetwork = String(err.response);
+            
+            if(checkNetwork !== 'undefined'){
+               
+            }else{
+            dispatch({type:NETWORK_ERROR_OR_PROBLEM});
+             }
         
     });
 };
@@ -116,7 +147,14 @@ export const editUserDetails = (userDetails)=>(dispatch)=>{
  .then(()=>{
      dispatch(getUserData());
  }).catch((err)=>{
-    console.log(err);
+    const checkNetwork = String(err.response);
+            
+            if(checkNetwork !== 'undefined'){
+                
+      
+            }else{
+            dispatch({type:NETWORK_ERROR_OR_PROBLEM});
+             }
  });
 };
 
@@ -131,27 +169,35 @@ export const resetP = (userEmail)=>(dispatch)=>{
         });
     })
     .catch((err)=>{
-        dispatch({
-            type: RESET_ERROR,
-            payload: err.response.data
-        });
-        console.log('error in axios');
+        const checkNetwork = String(err.response);
+            
+            if(checkNetwork !== 'undefined'){
+                dispatch({
+                    type: RESET_ERROR,
+                    payload: err.response.data
+                });
+      
+            }else{
+            dispatch({type:NETWORK_ERROR_OR_PROBLEM});
+             }
     });
     }else{
         dispatch({
             type: RESET_ERROR,
             payload: {error: "Please enter a valid email"}
         });
-        console.log('axios did not run check email');
+        
     }
 
     
 };
 const isEmail = (email)=>{
-    const regularExpression = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/ ;
+    const regularExpression = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/  ;
         if(email.match(regularExpression)) return true;
         else return false;
  };
  
-
+ export const clearNetworkError = ()=>(dispatch)=>{
+    dispatch({type: CLEAR_NETWORK_ERROR,});
+};
 

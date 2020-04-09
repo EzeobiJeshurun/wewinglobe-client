@@ -15,6 +15,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import DeleteWeshout from './DeleteWeshout';
 import ABOUT_A_POST from './ABOUT_A_POST';
 import LikeButton from './LikeButton';
+import CommentOnSimilarToAboutAPost from './CommentOnSimilarToAboutAPost';
 // redux things
 import {connect} from 'react-redux'; //used in connecting store state and any action "functions or classes" to prop
 //import {unlikeWeshout, likeWeshout} from '../redux/actions/dataActions';
@@ -53,9 +54,12 @@ function Posts(props) {
     const deleteButton= authenticated && handle === userHandle? (<Fragment>
         <DeleteWeshout weshoutId={weshoutId}/> </Fragment>
     ) : null;
+
+        
+
     return (
        <Card className={classes.card}>
-           <CardMedia image={userImage} title="user profile image" className={classes.image} />
+           <CardMedia image={userImage} title="user profile image" component={Link} to={`/users/${userHandle}`} className={classes.image} />
            <CardContent className={classes.content}>
                 <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
                 {deleteButton}
@@ -64,13 +68,9 @@ function Posts(props) {
                 <LikeButton weshoutId= {weshoutId}/>
         
                 <span>{likeCount}likes</span>
-                <Tooltip title="comment" placement="top">
-                    <IconButton>
-                        <ChatIcon color="primary"/>
-                    </IconButton>
-                </Tooltip>
+                <CommentOnSimilarToAboutAPost postHandle={userHandle} postId={weshoutId} />
                 <span>{commentCount}comment</span>
-                <ABOUT_A_POST postHandle={userHandle} postId = {weshoutId} />
+                <ABOUT_A_POST postHandle={userHandle}   postId = {weshoutId} />
            </CardContent>
        </Card>
     )

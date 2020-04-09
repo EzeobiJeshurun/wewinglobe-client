@@ -1,8 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import axios from 'axios';
+
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 import Grid from '@material-ui/core/Grid';
 import wewinglobe from '../Images/wewinglobe.png';
 import Typography from '@material-ui/core/Typography';
@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {loginUser} from '../redux/actions/userActions';
 import {connect} from 'react-redux';
+import NetworkErrorSnackBar from '../components/Weshouts/NetworkErrorSnackBar';
 
 
 const useStyles = makeStyles(theme =>({
@@ -64,12 +65,17 @@ const useStyles = makeStyles(theme =>({
 
 function Login(props) {
     
-    const {UI:{loading, errors, general}} = props;
+    const {UI:{loading, errors,networkError, general}} = props;
    const [email,setEmail] = useState("");
    const [password, setPassword] = useState("");
    //const [loading, setLoading] = useState(false);
    const [newerrors,setNewerrors] = useState({email: '', password: ''});
    const [newgeneral, setnewGeneral] = useState('');
+    const clearAllFields = ()=>{
+        setnewGeneral('');
+        setNewerrors({email: '', password: ''});
+    };
+
     useEffect(()=>{
         if(errors.errors !== undefined){
             setNewerrors(errors.errors);
@@ -88,15 +94,22 @@ function Login(props) {
        
         event.preventDefault();
        // setLoading(true);
+       if(email=== ""){
+        setNewerrors({email:"must not be empty", password: ""});
+       }else if(password === ""){
+        setNewerrors({email:"", password: "must not be empty"});
+       }else{
         const userData = {
             email: email,
             password: password
         };
         props.loginUser(userData, props.history);
+       }
+        
         //loginUser(userData);
        //axios.post('/login' , userData)
        //.then(res=>{
-        //   console.log(res.data);
+        
         //   localStorage.removeItem('FBIdToken');
         //   localStorage.setItem('FBIdToken',`Bearer ${res.data.token}`);
         //   setLoading(false);
@@ -104,7 +117,7 @@ function Login(props) {
       // })
       // .catch((err)=>{
             
-       //    console.log(err.response.data);
+       
             
          //  console.log('it got here');
           // if(err.response.data.errors){
@@ -128,7 +141,7 @@ function Login(props) {
 
     const classes = useStyles();
     return (
-        <Grid container className={classes.form}>
+        <Grid container className={classes.form} spacing={0}>
          <Grid item sm/>   
          <Grid item sm>
         <img src={wewinglobe} alt='wewinglobe logo' className={classes.image} />
@@ -136,11 +149,15 @@ function Login(props) {
         <Typography variant='h4' className={classes.loginTitle}>Login</Typography>
         <form noValidate onSubmit={(event)=>{HandleSubmit(event)}}>
         {newgeneral && (<Typography variant="body2" className={classes.customError}>{newgeneral}</Typography>)}   
-        <TextField id="email" name="email" value={email} type="email" label="Email" onChange={(event)=>{
+        <TextField id="email" name="email" value={email} type="email" label="Email" onFocus={()=>{
+            clearAllFields();
+        }} onChange={(event)=>{
             setEmail(event.target.value)
         }} className={classes.textField} helperText={newerrors.email} 
         error={newerrors.email ? true: false }  ></TextField>
-         <TextField id="password" name="password" value={password} type="password" label="Password" onChange={(event)=>{
+         <TextField id="password" name="password" onFocus={()=>{
+             clearAllFields();
+         }} value={password} type="password" label="Password" onChange={(event)=>{
             setPassword(event.target.value)
         }} className={classes.textField} 
         helperText={newerrors.password} 
@@ -153,6 +170,7 @@ function Login(props) {
         <br/>
         <Typography variant="h6" color="textSecondary">Don't have an account? <Link to='/Signup' className={classes.createAccount}>signup</Link></Typography>
         </form>
+        <NetworkErrorSnackBar  snackBarControl={networkError} />
         </Grid> 
         <Grid item sm/>  
         </Grid>

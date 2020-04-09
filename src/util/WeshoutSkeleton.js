@@ -44,12 +44,17 @@ const useStyles = makeStyles(theme=>({
         width: '50%',
         marginBottom: 10,
         backgroundColor: 'rgba(0,0,0,0.6)',
+    },
+    bottomSpacer:{
+        width: '95%',
+        height: '20px',
     }
 }));
 
 function WeshoutSkeleton() {
     const classes = useStyles();
     const content = Array.from({length: 5}).map((item,index)=>(
+        <Fragment>
         <Card className={classes.card} key={index}>
             <CardMedia className={classes.cover} image={NoImg} alt="dummy"/>
             <CardContent className={classes.cardContent}>
@@ -61,6 +66,8 @@ function WeshoutSkeleton() {
                 
             </CardContent>
         </Card>
+        <div className={classes.bottomSpacer}></div>
+        </Fragment>
     ));
 
     return (

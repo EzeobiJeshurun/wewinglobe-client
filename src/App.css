@@ -20,7 +20,11 @@ body {
   box-sizing: border-box;
 }
 
-
+#root {
+  padding: 0;
+  border: none;
+  margin:0;
+}
 
 .container{
 width: 90vw;  
@@ -30,8 +34,12 @@ box-sizing: border-box;
 }
 
 .App {
-  width: 95vw;
-  box-sizing: border-box;
+  width: 100%;
+  
+  border: 0;
+  padding: 0;
+  margin:0;
+  border-width: 0;
 }
 
 .nav-container{

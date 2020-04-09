@@ -1,9 +1,9 @@
-import React,{useState, Fragment, useEffect, useMemo} from 'react';
+import React,{useState, Fragment, useEffect,} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core';
 import WeshoutSkeleton from '../util/WeshoutSkeleton';
 import ProfileSkeleton from '../util/ProfileSkeleton';
-
+import NetworkErrorSnackBar from '../components/Weshouts/NetworkErrorSnackBar';
 import axios from 'axios';
 import Posts from '../components/Weshouts/Posts';
 import StaticProfile from '../components/Profile/StaticProfile';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme =>({
 
 function USER(props) {
     
-const {aboutOneUser, weshouts, loading} = props.data;    
+const {aboutOneUser, weshouts,networkError, loading} = props.data;    
 const match = props.match; 
 const getUserFunction = props.getSpecificUserDetails;
      
@@ -77,6 +77,7 @@ const userWeshoutMarkup = loading? (<div><WeshoutSkeleton/></div>) : aboutOneUse
                 {userWeshoutMarkup}
             </Grid>
         </Grid>
+        <NetworkErrorSnackBar snackBarControl={networkError} />
         </Fragment>
     )
 }

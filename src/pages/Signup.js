@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import axios from 'axios';
+
+
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 import Grid from '@material-ui/core/Grid';
 import wewinglobe from '../Images/wewinglobe.png';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 //Redux
+import NetworkErrorSnackBar from '../components/Weshouts/NetworkErrorSnackBar';
 import {connect} from 'react-redux';
 import {signupUser} from '../redux/actions/userActions';
 
@@ -61,7 +63,7 @@ const useStyles = makeStyles(theme =>({
 
 function Signup(props) {
 
-    const { UI:{loading, general, handleinUse, emailinUse, errors}} = props;
+    const { UI:{loading, general, handleinUse, emailinUse, errors,networkError}} = props;
     const [emailinuse, setEmailinuse] = useState({email: ''});
     const [handleinuse, setHandleinuse] = useState({handle:''});
     const [email,setEmail] = useState("");
@@ -72,6 +74,8 @@ function Signup(props) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [newgeneral, setNewgeneral] = useState({general: ''});
     const [handle, setHandle] = useState('');
+
+    
 
     useEffect(()=>{
         if(errors.errors !== undefined){
@@ -165,6 +169,7 @@ function Signup(props) {
     };
 
     
+    
 
     const classes = useStyles();
     return (
@@ -182,16 +187,18 @@ function Signup(props) {
         }} className={classes.textField} helperText={newerrors.errors.handle} 
         error={newerrors.errors.handle ? true: false } fullWidth ></TextField> 
         {emailinuse.email && (<Typography variant="body2" className={classes.customError}>{emailinuse.email}</Typography>)} 
-        <TextField id="email" name="email" value={email} type="email" label="Email" onChange={(event)=>{
+        <TextField id="email" name="email"  value={email} type="email" label="Email" onChange={(event)=>{
             setEmail(event.target.value)
         }} className={classes.textField} helperText={newerrors.errors.email} 
         error={newerrors.errors.email ? true: false } fullWidth ></TextField>
-         <TextField id="password" name="password" value={password} type="password" label="Password" onChange={(event)=>{
+         <TextField id="password" name="password" value={password} 
+          type="password" label="Password" onChange={(event)=>{
             setPassword(event.target.value)
         }} className={classes.textField} 
         helperText={newerrors.errors.password} 
         error={newerrors.errors.password ? true: false } fullWidth></TextField>
-        <TextField id="confirmPassword" name="confirmPassword" value={confirmPassword} type="password" label="Confirm password" onChange={(event)=>{
+        <TextField id="confirmPassword" 
+         name="confirmPassword" value={confirmPassword} type="password" label="Confirm password" onChange={(event)=>{
             setConfirmPassword(event.target.value)
         }} className={classes.textField} 
         helperText={newerrors.errors.confirmPassword} 
@@ -203,6 +210,7 @@ function Signup(props) {
         <br/>
         <Typography variant="h6" color="textSecondary">Already have an account? <Link to='/login' className={classes.createAccount}>Login</Link></Typography>
         </form>
+      <NetworkErrorSnackBar snackBarControl= {networkError}/>
         </Grid> 
         <Grid item sm/>  
         </Grid>
