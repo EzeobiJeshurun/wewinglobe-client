@@ -71,7 +71,7 @@ const Styles = makeStyles(theme=>({
 }));
 
 function CommentOnSimilarToAboutAPost(props) {
-    const {postId, postHandle,
+    const {postId, postHandle, authenticated,
         UI: {loading}, 
         data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body, comments }} }= props;
 const classes = Styles();
@@ -139,13 +139,17 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
 );
     return (
         <Fragment>
-            <Tooltip title="comment" placement="top">
+           {authenticated?(<Tooltip title="comment" placement="top">
             <IconButton onClick={()=>{
                 handleOpen();
             } } className={classes.showButton} >
                 <ChatIcon color="primary"/>
             </IconButton> 
-            </Tooltip>
+            </Tooltip>):(<Tooltip title="comment" placement="top">
+            <IconButton component={Link} to={'/Login'} className={classes.showButton} >
+                <ChatIcon color="primary"/>
+            </IconButton> 
+            </Tooltip>)}
             <Dialog open={open} onClose={()=>{
                 handleClose();
             }} fullWidth maxWidth="sm">
@@ -168,6 +172,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
 const mapStateToProps = (state)=>({
 UI: state.UI,
 data: state.data,
+authenticated: state.user.authenticated,
 });
 
 const mapActionsToProp= {
