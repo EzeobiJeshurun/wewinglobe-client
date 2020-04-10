@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import noImg from '../../Images/no-img.jpeg';
 
 import MuiLink from '@material-ui/core/Link';
 
@@ -51,7 +52,7 @@ function StaticProfile(props) {
         <Paper className ={classes.paper} >
         <div className={classes.profile}>
                 <div className='image-wrapper'>
-                    <img src={imageUrl} alt="profile"  className="profile-image"/>
+                    <img src={imageUrl?imageUrl:noImg} alt="profile"  className="profile-image"/>
                 </div>
                 <hr/>
                 <div className="profile-detail">

@@ -8,6 +8,7 @@ const initialState = {
     likes: [],
     notifications: [],
     networkError: false,
+    
 };
 
 

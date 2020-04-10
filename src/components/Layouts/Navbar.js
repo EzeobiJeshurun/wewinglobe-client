@@ -2,43 +2,61 @@ import React, {useState,Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import {connect} from 'react-redux';
 import InvertColors from '@material-ui/icons/InvertColors';
 import InvertColorsOff from '@material-ui/icons/InvertColorsOff';
 import {makeStyles} from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import SignUpIcon from '@material-ui/icons/PersonAdd';
+import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
+import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from './Notifications';
 import AddPost from '../Weshouts/AddPost';
+import AppBardrawer from './AppBardrawer';
+
 
 const useStyles = makeStyles(theme=>({
     navContainer:{
         margin: 'auto',
+        boxSizing: 'border-box',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-end',
         [theme.breakpoints.down('xs')]:{
         //position: 'sticky'|'-webkit-sticky',
         }
     },
     afterAuthButton:{
         color: theme.palette.myextra.light
-    }
+    },
+    pushAllIconsLeft:{
+        marginLeft: 'auto'
+    },
+    
 }));
 
 
 
 
 
-function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
+function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authenticated}) {
     const classes = useStyles();
 
     const [changeColors, setChangeColors] = useState(false);
+    const [changeBrightness, setChangeBrightness] = useState(false);
         return (
             <AppBar>
                 <Toolbar className={classes.navContainer}>
                 {authenticated ? (<Fragment>
-                    
+                    <Hidden smUp>
+                    <AppBardrawer />
+                    </Hidden>
                     <AddPost/>
                     
                     <Link to='/'>
@@ -49,19 +67,45 @@ function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
                     </Tooltip>
                     </Link>
                  <Notifications />
-    
-                </Fragment>):(
-                    <Fragment>
-                    <Button color="inherit" component={Link} to="/">Home</Button>
-                    <Button color="inherit" component={Link} to="/signup">Signup</Button>
-                    <Button color="inherit" component={Link} to="/login">login</Button>
-                    <Button color="inherit" onClick={()=>{
+                 <IconButton color="inherit" onClick={()=>{
                         setThemecontroller(!themecontroller);
                         myTheme()
                         setChangeColors(!changeColors);
-                    }}>
+                    }} className={classes.pushAllIconsLeft}>
                         {changeColors? <InvertColors/>:<InvertColorsOff/>}
-                    </Button>
+                    </IconButton>
+                    <IconButton color="inherit" onClick={()=>{
+                        setChangeBrightness(!changeBrightness);
+                    }}
+                    >
+                    {changeBrightness? <BrightnessLowIcon/>: <BrightnessHighIcon/>}
+                    </IconButton>
+                   {imageUrl&& <Avatar alt="user profile" src={imageUrl} />}
+    
+                </Fragment>):(
+                    <Fragment>
+                    <Hidden smUp>
+                    <AppBardrawer />
+                    </Hidden>   
+                    <Button color="inherit" component={Link} to="/">Home</Button>
+                    <Button color="inherit" component={Link} to="/signup">Signup</Button>
+                    <Button color="inherit" component={Link} to="/login">login</Button>
+                    <IconButton color="inherit" onClick={()=>{
+                        setThemecontroller(!themecontroller);
+                        myTheme()
+                        setChangeColors(!changeColors);
+                    }} className={classes.pushAllIconsLeft}>
+                        {changeColors? <InvertColors/>:<InvertColorsOff/>}
+                    </IconButton>
+                    <IconButton color="inherit" onClick={()=>{
+                        setChangeBrightness(!changeBrightness);
+                    }}
+                    >
+                    {changeBrightness? <BrightnessLowIcon/>: <BrightnessHighIcon/>}
+                    </IconButton>
+                    <IconButton color="inherit" component={Link} to={'/Signup'} >
+                        <SignUpIcon/>
+                    </IconButton>
                     </Fragment>
                 )}
                 
@@ -71,7 +115,8 @@ function Navbar({myTheme, setThemecontroller, themecontroller, authenticated}) {
     }
 
     const mapStateToProps =(state)=>({
-        authenticated: state.user.authenticated
+        authenticated: state.user.authenticated,
+        imageUrl: state.user.credentials.imageUrl,
 
     });
 

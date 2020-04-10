@@ -71,7 +71,7 @@ const userWeshoutMarkup = loading? (<div><WeshoutSkeleton/></div>) : aboutOneUse
         <Fragment>
              <Grid container className={classes.root} spacing={2}>
             <Grid item sm={4} className={classes.lowerGrid} xs={11}>
-              {profile=== {}? (<div><ProfileSkeleton/></div>):(<Fragment><StaticProfile profile={profile} /></Fragment>)}  
+              {profile? (<Fragment><StaticProfile profile={profile} /></Fragment>):(<div><ProfileSkeleton/></div>)}  
         </Grid>
         <Grid item sm={8} xs={11} className={classes.lowerGrid}>
                 {userWeshoutMarkup}

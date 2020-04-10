@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-
+import noImg from '../../Images/no-img.jpeg';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -18,6 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import  ProfileSkeleton from '../../util/ProfileSkeleton';
 
 const useStyles = makeStyles(theme=>({
     paper: {
@@ -98,7 +99,7 @@ function Profile(props){
             <Paper className ={classes.paper} >
                 <div className={classes.profile}>
                         <div className='image-wrapper'>
-                            <img src={imageUrl} alt="profile"  className="profile-image"/>
+                            <img src={imageUrl?imageUrl:noImg} alt="profile"  className="profile-image"/>
                             <input type="file" id='imageInput'  hidden="hidden" onChange={(event)=>{
                                 handleImageChange(event);
                             }}/>
@@ -161,7 +162,7 @@ function Profile(props){
                 </Button>
             </div>
         </Paper>
-    )): (<p>loading</p>)
+    )): (<ProfileSkeleton />)
     
 
     return profileMarkup;

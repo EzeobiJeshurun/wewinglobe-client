@@ -140,8 +140,8 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
 </Grid>
 );
     return (
-        <Fragment className={classes.ocuppyAllSpace}>
-             
+        <Fragment >
+             <div className={classes.ocuppyAllSpace}>
             <Tooltip title="view post" placement="top">
             <IconButton onClick={()=>{
                 handleOpen();
@@ -164,7 +164,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
             </DialogContent>
 
             </Dialog>
-
+            </div>
         </Fragment>
     )
 }

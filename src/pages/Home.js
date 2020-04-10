@@ -50,7 +50,7 @@ function Home(props) {
   const {data:{weshouts, loading,networkError }, getWeshouts}= props;
     const classes = useStyles();
    
-    const [weshout, setWeshout] = useState(false);
+    const [weshout, setWeshout] = useState([]);
     const [steadily, setSteadily] = useState(1);
 
     
@@ -61,10 +61,12 @@ function Home(props) {
 
     useEffect(()=>{
         getAllposts();
-       
+        
     },[getAllposts]);
 
-let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<div><WeshoutSkeleton/></div>);
+let recentScreamsMarkup = weshout  ? (weshout.map(onepost=> <Posts key={onepost.weshoutId} onepost={onepost} />)):(<WeshoutSkeleton/>);
+
+
     return (
         <Fragment>
     <Hidden xsDown>
@@ -74,6 +76,7 @@ let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.we
                 <Profile />
         </Grid>
         <Grid item sm={8} xs={11} className={classes.lowerGrid}>
+            {!weshouts.length > 0 ?(<WeshoutSkeleton/>) : null }
                 {recentScreamsMarkup}
             </Grid>
             </Grid>
@@ -87,6 +90,7 @@ let recentScreamsMarkup = weshout? (weshout.map(onepost=> <Posts key={onepost.we
       </Grid>
       <div className={classes.spacerDiv}></div>
       <Grid item sm={8} xs={11} className={classes.lowerGrid}>
+      {!weshouts.length > 0 ?(<WeshoutSkeleton/>) : null }
               {recentScreamsMarkup}
           </Grid>
     </Grid>
