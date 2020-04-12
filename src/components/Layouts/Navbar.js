@@ -59,17 +59,18 @@ function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authent
                 <Toolbar className={classes.navContainer}>
                 {authenticated ? (<Fragment>
                     <Hidden smUp>
-                    <AppBardrawer AddPost={AddPost} Notifications={Notifications}/>
+                    <AppBardrawer />
                     </Hidden>
                     <AddPost/>
                     
-                    <Link to='/'>
+                   <Hidden xsDown> <Link to='/'>
                     <Tooltip title="home" placement="top">
                     <IconButton>
                         <HomeIcon className={classes.afterAuthButton}/>
                     </IconButton>
                     </Tooltip>
-                    </Link>
+                </Link>
+                </Hidden>
                  <Notifications />
                  <IconButton color="inherit" onClick={()=>{
                         setThemecontroller(!themecontroller);
@@ -89,22 +90,22 @@ function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authent
                 </Fragment>):(
                     <Fragment>
                     <Hidden smUp>
-                    <AppBardrawer AddPost={AddPost} Notifications={Notifications}/>
+                    <AppBardrawer />
                     </Hidden> 
                     <Hidden xsDown>  
                     <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/signup">Signup</Button>
                     <Button color="inherit" component={Link} to="/login" className={classes.pushAllIconsRight}>login</Button>
                     </Hidden>
-                    <Hidden smUp>
+                  {/* <Hidden smUp>
                     <Tooltip title="Home" placement="top">
                     <IconButton color="inherit" className={classes.pushAllIconsLeft} component={Link} to='/' >
                     <HomeIcon />
                     </IconButton> 
                     </Tooltip>
-                    </Hidden>
+                  </Hidden>*/}
                     <Tooltip title="Change color" placement="top">
-                    <IconButton color="inherit" onClick={()=>{
+                    <IconButton color="inherit"  className={classes.pushAllIconsLeft}   onClick={()=>{
                         setThemecontroller(!themecontroller);
                         myTheme()
                         setChangeColors(!changeColors);

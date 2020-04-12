@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {CLEAR_CLOSE_ON_RECEIVE} from '../../redux/types';
+import {CLEAR_CLOSE_ON_RECEIVE,CLOSE_POST_FROM_MENU} from '../../redux/types';
 import {postWeshout} from '../../redux/actions/dataActions';
 
 
@@ -50,7 +50,7 @@ const Styles = makeStyles(theme =>({
 }));
 
 function AddPost(props) {
-    const {UI: {loading, postError}, closeOnRecieve } = props;
+    const {UI: {loading, postError}, closeOnRecieve,openingPostFromMenu } = props;
     const [open , setOpen] = useState(false);
     const [error, setError] = useState({error: ""});
     //the state helpClose, is assigned to ensure the dialog closes only when there is no errors.
@@ -62,6 +62,14 @@ function AddPost(props) {
     const handleClose=()=>{
         setOpen(false);
     };
+    const FuctionToOpenPostFromMenu = useMemo(()=>{
+        if(openingPostFromMenu){
+            setOpen(openingPostFromMenu);
+            store.dispatch({type: CLOSE_POST_FROM_MENU});
+        }
+        
+
+    },[openingPostFromMenu]);
 
     const addNewPost = (event)=>{
         event.preventDefault();
@@ -148,7 +156,8 @@ function AddPost(props) {
 }
 const mapStateToProps =(state)=>({
     UI: state.UI,
-    closeOnRecieve: state.data.closeOnRecieve
+    closeOnRecieve: state.data.closeOnRecieve,
+    openingPostFromMenu: state.user.openingPostFromMenu,
 });
 
 const mapActionsToProps = {

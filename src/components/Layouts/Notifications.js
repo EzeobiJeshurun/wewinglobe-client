@@ -16,10 +16,15 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatIcon from '@material-ui/icons/Chat';
 //redux
 import {connect} from 'react-redux';
+import {CLOSE_NOTIFICATIONS_FROM_MENU} from '../../redux/types'; 
 import {markNotificationsRead} from '../../redux/actions/dataActions';
+import store from '../../redux/store';
 const useStyles = makeStyles(theme=>({
     notifButton:{
         color: theme.palette.myextra.light,
+    },
+    menuClass:{
+        borderColor: 'rgba(0,0,0,0.2)',
     }
 }));
 
@@ -27,7 +32,7 @@ const useStyles = makeStyles(theme=>({
 function Notifications(props) {
 
 const classes= useStyles();    
-const {notifications,}= props;
+const {notifications,openingNotificationsFromMenu,}= props;
 const [newNotifNumber, setNewNotifNumber] = useState("");
 const [anchorEl, setAnchorEl] = useState(null);
 const FunctionToSendMarkRead = props.markNotificationsRead;
@@ -37,6 +42,14 @@ const handleOpen=(event)=>{
 const handleClose =()=>{
     setAnchorEl(null);
 };
+const FuctionToTriggerNotificationsFromMenu = useMemo(()=>{
+    if(openingNotificationsFromMenu){
+        document.getElementById('notif').click();
+        store.dispatch({type: CLOSE_NOTIFICATIONS_FROM_MENU});
+    }
+    
+
+},[openingNotificationsFromMenu]);
 
 const onMenuOpened =useCallback( ()=>{
 let unreadNotifications = notifications.filter(not=> not.read === false );
@@ -49,6 +62,7 @@ FunctionToSendMarkRead(arrayOfNotificationId);
 },[notifications,FunctionToSendMarkRead]);
 
 let notificationIcon;
+
 
 let notificationAutoControl = useMemo(()=>{
     const numberOfNotifications =  notifications.filter(not => not.read === false).length;
@@ -82,7 +96,7 @@ if(notifications && notifications.length>0){
             return (
                 <MenuItem onClick={()=>{
                     handleClose();
-                }}   key={not.createdAt} > 
+                }}   key={not.createdAt} className={classes.menuClass}  > 
                 {icon}
                 <Typography component={Link} 
                 variant="body2" to={`/users/${not.recipient}/weshout/${not.weshoutId}`}>
@@ -104,7 +118,7 @@ if(notifications && notifications.length>0){
     return (
         <Fragment>
             <Tooltip title="notifications" placement="top">
-            <IconButton aria-owns={anchorEl? 'simple-menu': undefined} aria-haspopup="true"
+            <IconButton id="notif" aria-owns={anchorEl? 'simple-menu': undefined} aria-haspopup="true"
             onClick={(event)=>{
                 handleOpen(event)
             }}       >
@@ -135,6 +149,7 @@ if(notifications && notifications.length>0){
 
 const mapStateToProps= (state) =>({
 notifications : state.user.notifications,
+openingNotificationsFromMenu: state.user.openingNotificationsFromMenu,
 });
 
 const mapActionsToProps = {

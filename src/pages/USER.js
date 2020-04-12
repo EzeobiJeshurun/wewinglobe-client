@@ -7,6 +7,7 @@ import NetworkErrorSnackBar from '../components/Weshouts/NetworkErrorSnackBar';
 import axios from 'axios';
 import Posts from '../components/Weshouts/Posts';
 import StaticProfile from '../components/Profile/StaticProfile';
+import Hidden from '@material-ui/core/Hidden';
 // This is for redux
 import {connect} from 'react-redux';
 import {getSpecificUserDetails} from '../redux/actions/dataActions';
@@ -25,7 +26,12 @@ const useStyles = makeStyles(theme =>({
     },
     lowerGrid: {
         margin: '0px auto 0px auto',
+    },
+    spacerDiv:{
+        width: '90vw',
+        height: '20px',
     }
+
 }));
 
 function USER(props) {
@@ -69,6 +75,18 @@ const userWeshoutMarkup = loading? (<div><WeshoutSkeleton/></div>) : aboutOneUse
 
     return (
         <Fragment>
+        <Hidden smUp>
+            <Grid container className={classes.root} spacing={0}>
+            <Grid item sm={4} className={classes.lowerGrid} xs={11}>
+              {profile? (<Fragment><StaticProfile profile={profile} /></Fragment>):(<div><ProfileSkeleton/></div>)}  
+        </Grid>
+        <div className={classes.spacerDiv}></div>
+        <Grid item sm={8} xs={11} className={classes.lowerGrid}>
+                {userWeshoutMarkup}
+            </Grid>
+        </Grid>
+        </Hidden>
+        <Hidden xsDown>
              <Grid container className={classes.root} spacing={2}>
             <Grid item sm={4} className={classes.lowerGrid} xs={11}>
               {profile? (<Fragment><StaticProfile profile={profile} /></Fragment>):(<div><ProfileSkeleton/></div>)}  
@@ -77,6 +95,7 @@ const userWeshoutMarkup = loading? (<div><WeshoutSkeleton/></div>) : aboutOneUse
                 {userWeshoutMarkup}
             </Grid>
         </Grid>
+        </Hidden>
         <NetworkErrorSnackBar snackBarControl={networkError} />
         </Fragment>
     )

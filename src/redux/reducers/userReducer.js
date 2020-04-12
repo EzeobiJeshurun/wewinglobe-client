@@ -1,4 +1,5 @@
-import {SET_USER, MARK_NOTIFICATIONS_READ,SET_UNAUTHENTICATED,CLEAR_NETWORK_ERROR, NETWORK_ERROR_OR_PROBLEM, UNLIKE_WESHOUT, SET_AUTHENTICATED, LOADING_USER,LIKE_WESHOUT} from '../types';
+import {SET_USER, MARK_NOTIFICATIONS_READ,OPEN_POST_FROM_MENU, CLOSE_POST_FROM_MENU,SET_UNAUTHENTICATED,
+    CLEAR_NETWORK_ERROR,OPEN_NOTIFICATIONS_FROM_MENU,CLOSE_NOTIFICATIONS_FROM_MENU, NETWORK_ERROR_OR_PROBLEM, UNLIKE_WESHOUT, SET_AUTHENTICATED, LOADING_USER,LIKE_WESHOUT} from '../types';
 
 
 const initialState = {
@@ -8,6 +9,8 @@ const initialState = {
     likes: [],
     notifications: [],
     networkError: false,
+    openingPostFromMenu: false,
+    openingNotificationsFromMenu: false,
     
 };
 
@@ -71,6 +74,29 @@ export default function(state= initialState, action){
                 networkError: false,
                 loading:false,
             };
+        case  OPEN_NOTIFICATIONS_FROM_MENU:
+            return {
+                ...state,
+                openingNotificationsFromMenu: true,
+            };
+
+        case CLOSE_NOTIFICATIONS_FROM_MENU:
+            return {
+                ...state,
+                openingNotificationsFromMenu:false,
+            };
+
+        case OPEN_POST_FROM_MENU:
+            return {
+                ...state,
+                openingPostFromMenu: true,
+            };
+
+        case CLOSE_POST_FROM_MENU:
+            return {
+                ...state,
+                openingPostFromMenu: false,
+            };            
             
         default:
             return state;    

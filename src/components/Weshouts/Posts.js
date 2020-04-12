@@ -2,7 +2,9 @@ import React, {Fragment} from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
+import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme=>({
         display: 'flex',
         marginBottom: 20,
         
-         [theme.breakpoints.down('xs')] : {
+         [theme.breakpoints.down('770')] : {
              flexDirection: 'column',
              //flexWrap: 'wrap'
          }
@@ -35,12 +37,17 @@ const useStyles = makeStyles(theme=>({
     content:{
         padding: 25,
         
+        
+        
     },
     image: {
         minWidth: 250,
         minHeight: 250,
         objectFit: 'cover'
 
+    },
+    flexContentDiv:{
+        
     }
 
 }));
@@ -65,12 +72,32 @@ function Posts(props) {
                 {deleteButton}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1" >{body}</Typography>
+                
+                
+                 <Hidden smUp>   
                 <LikeButton weshoutId= {weshoutId}/>
         
                 <span>{likeCount}likes</span>
                 <CommentOnSimilarToAboutAPost postHandle={userHandle} postId={weshoutId} />
-                <span>{commentCount}comment</span>
+                <span>{commentCount}comment  </span>
+                
                 <ABOUT_A_POST postHandle={userHandle}   postId = {weshoutId} />
+                </Hidden>
+                <Hidden xsDown> 
+                <CardActions> 
+               <div> <LikeButton weshoutId= {weshoutId}/>
+        
+                <span>{likeCount}likes</span>
+                <CommentOnSimilarToAboutAPost postHandle={userHandle} postId={weshoutId} />
+                <span>{commentCount}comment  </span>
+                </div>
+                
+                <ABOUT_A_POST postHandle={userHandle}   postId = {weshoutId} />
+                </CardActions> 
+                </Hidden>
+                
+                
+            
            </CardContent>
        </Card>
     )

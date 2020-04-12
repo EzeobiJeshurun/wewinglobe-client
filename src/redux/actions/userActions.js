@@ -1,5 +1,5 @@
-import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SIGNUP_ERRORS,NETWORK_ERROR_OR_PROBLEM,CLEAR_NETWORK_ERROR, RESET_P,RESET_ERROR, LOADING_EUI,
-    SET_UNAUTHENTICATED, LOADING_USER} from '../types';
+import {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SIGNUP_ERRORS, OPEN_POST_FROM_MENU,NETWORK_ERROR_OR_PROBLEM,CLEAR_NETWORK_ERROR, RESET_P,RESET_ERROR, LOADING_EUI,
+    SET_UNAUTHENTICATED, LOADING_USER,OPEN_NOTIFICATIONS_FROM_MENU} from '../types';
 import axios from 'axios';
 
 export const loginUser =(userData, history)=>(dispatch)=>{
@@ -199,5 +199,16 @@ const isEmail = (email)=>{
  
  export const clearNetworkError = ()=>(dispatch)=>{
     dispatch({type: CLEAR_NETWORK_ERROR,});
+};
+export const openNotifFromMenu =()=>(dispatch)=>{
+    dispatch({
+        type: OPEN_NOTIFICATIONS_FROM_MENU,
+    });
+};
+
+export const openPostFromMenu =()=>(dispatch)=>{
+    dispatch({
+        type: OPEN_POST_FROM_MENU,
+    });
 };
 

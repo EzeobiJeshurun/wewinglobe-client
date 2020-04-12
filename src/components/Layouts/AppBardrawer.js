@@ -17,7 +17,7 @@ import NotificationIcon from '@material-ui/icons/Notifications';
 import LoginIcon from '@material-ui/icons/Input';
 import SignUpIcon from '@material-ui/icons/HowToReg';
 import {connect} from 'react-redux';
-import { logoutUser} from '../../redux/actions/userActions';
+import { logoutUser,openNotifFromMenu,openPostFromMenu} from '../../redux/actions/userActions';
 
 
 const useStyles = makeStyles(theme=>({
@@ -43,8 +43,9 @@ const useStyles = makeStyles(theme=>({
 }));
 
 function AppBardrawer(props) {
-    const {authenticated, AddPost, Notifications} = props;
+    const {authenticated} = props;
     const LogoutFunction = props.logoutUser;
+
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const handleOpen= ()=>{
@@ -53,14 +54,8 @@ function AppBardrawer(props) {
     const handleClose =()=>{
         setOpen(false);
     };
-    const clickAddPost =()=>{
-       const postElem= document.getElementById('forAddingPost');
-       postElem.click();
-    };
-    const clickNotifications =()=>{
-        const notifElem = document.getElementById('forNotifications');
-        notifElem.click();
-    };
+    const clickAddPost = props.openPostFromMenu;
+    const clickNotifications = props.openNotifFromMenu;
 
     return (
         <Fragment>
@@ -113,12 +108,7 @@ function AppBardrawer(props) {
            </ListItem> </Fragment>) }    
             </List>
             </div>
-            <div className={classes.forNotifications}>
-            <Notifications className={classes.forNotifications} id="forNotifications"/>
-            </div>
-            <div className={classes.forAddingPost}>    
-            <AddPost className={classes.forAddingPost}  id ="forAddingPost"/>
-            </div>
+            
             
             </Drawer>
             
@@ -130,7 +120,9 @@ const mapStateToProps=(state)=>({
 authenticated: state.user.authenticated,
 });
 const mapActionsToProps = {
-    logoutUser
+    logoutUser,
+    openPostFromMenu,
+    openNotifFromMenu,
 };
 
 

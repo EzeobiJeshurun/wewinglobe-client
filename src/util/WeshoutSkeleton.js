@@ -9,6 +9,9 @@ import {makeStyles} from '@material-ui/core';
 const useStyles = makeStyles(theme=>({
     card: {
         display: 'flex',
+        [theme.breakpoints.down('770')] :{
+            flexDirection: 'column',
+        },
         marginBottom:'20',
     },
     cardContent:{
@@ -19,6 +22,7 @@ const useStyles = makeStyles(theme=>({
     cover:{
         objectFit: 'cover',
         minWidth: 200,
+        minHeight: 200,
     },
     handle:{
         width: 60,

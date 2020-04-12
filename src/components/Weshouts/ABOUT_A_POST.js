@@ -49,9 +49,23 @@ const Styles = makeStyles(theme=>({
         },
     },
     showButton: {
+    
+        position: 'relative',
+        paddingLeft: '5',
+        left: '88%',
+        [theme.breakpoints.down('xs')]:{
+            top: '83%',
+            position: 'absolute',
+            paddingLeft: '0',
+        },
+        [theme.breakpoints.between('700','770')]:{
+            top: '80%',
+            position: 'absolute',
+            paddingLeft: '0',
+        }
         
-        position: 'absolute',
-        left: '85%',
+        
+        
         
     
     },

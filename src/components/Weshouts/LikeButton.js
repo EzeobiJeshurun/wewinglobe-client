@@ -4,16 +4,22 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import {Link } from 'react-router-dom';
+import {makeStyles} from '@material-ui/core';
 //redux
 import { connect } from 'react-redux';
 import {unlikeWeshout, likeWeshout} from '../../redux/actions/dataActions';
 
-
+const useStyles = makeStyles(theme=>({
+    likeBut: {
+        marginLeft: 0,
+    }
+}));
 
 
 
 function LikeButton(props) {
     const {weshoutId, user: {likes, authenticated}}= props;
+    const classes= useStyles();
     let  likeCheck =()=>{
         if(likes && likes.find(like => like.weshoutId === weshoutId)){
             return true;
@@ -32,20 +38,20 @@ function LikeButton(props) {
     let ForLikeButton = !authenticated? ( 
         <Tooltip title="like" placement="top">
         <Link to='/Login'>   
-        <IconButton>
+        <IconButton className={classes.likeBut}>
             
-            <FavoriteBorder color="primary"/>
+            <FavoriteBorder className={classes.likeBut} color="primary"/>
             
         </IconButton>
         </Link>
        </Tooltip>):(likeCheck() ?( //begining of if the user is authenticad
        <Tooltip title="Undo like" placement="top">
-        <IconButton onClick={()=>{ implementUnlike()}}>
-            <Favorite color="primary"/>
+        <IconButton className={classes.likeBut} onClick={()=>{ implementUnlike()}}>
+            <Favorite className={classes.likeBut} color="primary"/>
         </IconButton>
        </Tooltip>):(<Tooltip title="like" placement="top">
-        <IconButton onClick={()=>{ implementLike()}}>
-            <FavoriteBorder color="primary"/>
+        <IconButton className={classes.likeBut} onClick={()=>{ implementLike()}}>
+            <FavoriteBorder className={classes.likeBut} color="primary"/>
         </IconButton>
        </Tooltip>));
     
