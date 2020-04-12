@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react';
 import IconBotton from '@material-ui/core/IconButton';
+import {Link} from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import {makeStyles} from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
@@ -32,9 +33,18 @@ const useStyles = makeStyles(theme=>({
         paddingRight: '20px',
         color: theme.palette.myextra.light,
     },
+    forAddingPost:{
+        visibility: 'hidden',
+        size:'0px',
+    },
+    forNotifications: {
+        visibility: 'hidden',
+    }
 }));
 
-function AppBardrawer() {
+function AppBardrawer(props) {
+    const {authenticated, AddPost, Notifications} = props;
+    const LogoutFunction = props.logoutUser;
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const handleOpen= ()=>{
@@ -42,6 +52,14 @@ function AppBardrawer() {
     };
     const handleClose =()=>{
         setOpen(false);
+    };
+    const clickAddPost =()=>{
+       const postElem= document.getElementById('forAddingPost');
+       postElem.click();
+    };
+    const clickNotifications =()=>{
+        const notifElem = document.getElementById('forNotifications');
+        notifElem.click();
     };
 
     return (
@@ -53,44 +71,57 @@ function AppBardrawer() {
                 <MenuIcon />
             </IconBotton>
             </Tooltip>
+            
             <Drawer anchor="left" open={open} onClose={handleClose} >
             <div className={classes.listContainerDiv} onClick={()=>{
                 handleClose();
             }}>
             <List>
-             <ListItem>
+             <ListItem component={Link} to={'/'}>
                  <ListItemIcon><HomeIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Home"}/>
             </ListItem>
-            <Divider/>   
-            <ListItem>
+              
+            {authenticated && (<Fragment><Divider/><ListItem onClick={()=>{
+                clickNotifications();
+            }}>
                  <ListItemIcon><NotificationIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Notifications"}/>
-            </ListItem>
-            <Divider/>
-            <ListItem>
+            </ListItem></Fragment>) }
+            
+
+            {authenticated &&(<Fragment><Divider/><ListItem onClick={()=>{
+                clickAddPost();
+            }}>
                  <ListItemIcon><PostAddIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Post"}/>
-            </ListItem>
-            <Divider/>   
-            <ListItem>
+            </ListItem></Fragment>)}
+              
+            {!authenticated &&(<Fragment><Divider/> <ListItem component={Link} to={'/Login'}>
                  <ListItemIcon><LoginIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Login"}/>
-            </ListItem>
-            <Divider/>   
-            <ListItem>
+            </ListItem></Fragment>)}
+               
+            { !authenticated &&(<Fragment><Divider/><ListItem component={Link} to={'/Signup'}>
                  <ListItemIcon><SignUpIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"SignUp"}/>
-            </ListItem>
-            <Divider/>   
-            <ListItem>
+            </ListItem></Fragment>) }
+              
+           { authenticated &&(<Fragment> <Divider/> <ListItem onClick={LogoutFunction}>
                  <ListItemIcon><ExitToAppIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Logout"}/>
-            </ListItem>      
+           </ListItem> </Fragment>) }    
             </List>
             </div>
+            <div className={classes.forNotifications}>
+            <Notifications className={classes.forNotifications} id="forNotifications"/>
+            </div>
+            <div className={classes.forAddingPost}>    
+            <AddPost className={classes.forAddingPost}  id ="forAddingPost"/>
+            </div>
+            
             </Drawer>
-
+            
         </Fragment>
     )
 }

@@ -54,8 +54,8 @@ const useStyles = makeStyles(theme=>({
 function WeshoutSkeleton() {
     const classes = useStyles();
     const content = Array.from({length: 5}).map((item,index)=>(
-        <Fragment>
-        <Card className={classes.card} key={index}>
+        <Fragment key={index}>
+        <Card className={classes.card} >
             <CardMedia className={classes.cover} image={NoImg} alt="dummy"/>
             <CardContent className={classes.cardContent}>
                 <div className={classes.handle}></div>

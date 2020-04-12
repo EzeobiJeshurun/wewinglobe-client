@@ -38,6 +38,10 @@ const useStyles = makeStyles(theme=>({
     pushAllIconsLeft:{
         marginLeft: 'auto'
     },
+    pushAllIconsRight: {
+        marginRight: 'auto',
+    }
+
     
 }));
 
@@ -55,7 +59,7 @@ function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authent
                 <Toolbar className={classes.navContainer}>
                 {authenticated ? (<Fragment>
                     <Hidden smUp>
-                    <AppBardrawer />
+                    <AppBardrawer AddPost={AddPost} Notifications={Notifications}/>
                     </Hidden>
                     <AddPost/>
                     
@@ -85,27 +89,42 @@ function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authent
                 </Fragment>):(
                     <Fragment>
                     <Hidden smUp>
-                    <AppBardrawer />
-                    </Hidden>   
+                    <AppBardrawer AddPost={AddPost} Notifications={Notifications}/>
+                    </Hidden> 
+                    <Hidden xsDown>  
                     <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/signup">Signup</Button>
-                    <Button color="inherit" component={Link} to="/login">login</Button>
+                    <Button color="inherit" component={Link} to="/login" className={classes.pushAllIconsRight}>login</Button>
+                    </Hidden>
+                    <Hidden smUp>
+                    <Tooltip title="Home" placement="top">
+                    <IconButton color="inherit" className={classes.pushAllIconsLeft} component={Link} to='/' >
+                    <HomeIcon />
+                    </IconButton> 
+                    </Tooltip>
+                    </Hidden>
+                    <Tooltip title="Change color" placement="top">
                     <IconButton color="inherit" onClick={()=>{
                         setThemecontroller(!themecontroller);
                         myTheme()
                         setChangeColors(!changeColors);
-                    }} className={classes.pushAllIconsLeft}>
+                    }} >
                         {changeColors? <InvertColors/>:<InvertColorsOff/>}
                     </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Change Brightness" placement="top">
                     <IconButton color="inherit" onClick={()=>{
                         setChangeBrightness(!changeBrightness);
                     }}
                     >
                     {changeBrightness? <BrightnessLowIcon/>: <BrightnessHighIcon/>}
                     </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Signup" placement="top">
                     <IconButton color="inherit" component={Link} to={'/Signup'} >
                         <SignUpIcon/>
                     </IconButton>
+                    </Tooltip>
                     </Fragment>
                 )}
                 
