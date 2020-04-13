@@ -11,7 +11,10 @@ import {unlikeWeshout, likeWeshout} from '../../redux/actions/dataActions';
 
 const useStyles = makeStyles(theme=>({
     likeBut: {
-        marginLeft: 0,
+        [theme.breakpoints.between('700','1000')]:{
+            paddingLeft: '0px',
+        },
+        
     }
 }));
 

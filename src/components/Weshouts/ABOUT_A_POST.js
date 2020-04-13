@@ -52,17 +52,28 @@ const Styles = makeStyles(theme=>({
     
         position: 'relative',
         paddingLeft: '5',
-        left: '88%',
+        
         [theme.breakpoints.down('xs')]:{
-            top: '83%',
+            left: '88%',
+           // top: '83%',
+            bottom: '25px',
             position: 'absolute',
             paddingLeft: '0',
         },
         [theme.breakpoints.between('700','770')]:{
-            top: '80%',
+            left: '88%',
+            //top: '80%',
+            bottom: '25px',
             position: 'absolute',
             paddingLeft: '0',
-        }
+        },
+        // [theme.breakpoints.between('770','900')]:{
+            //left: '88%',
+            //top: '80%',
+            //bottom: '25px',
+           // position: 'absolute',
+           // paddingLeft: '0',
+       // }
         
         
         

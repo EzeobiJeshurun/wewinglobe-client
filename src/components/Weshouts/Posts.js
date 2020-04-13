@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme=>({
     },
     content:{
         padding: 25,
+        [theme.breakpoints.between('770','1000')]:{
+            minWidth: 510,
+        }
         
         
         
@@ -43,7 +46,10 @@ const useStyles = makeStyles(theme=>({
     image: {
         minWidth: 250,
         minHeight: 250,
-        objectFit: 'cover'
+        objectFit: 'cover',
+        [theme.breakpoints.between('770','900')]:{
+            minWidth: 180,
+        }
 
     },
     flexContentDiv:{
@@ -84,15 +90,16 @@ function Posts(props) {
                 <ABOUT_A_POST postHandle={userHandle}   postId = {weshoutId} />
                 </Hidden>
                 <Hidden xsDown> 
-                <CardActions> 
-               <div> <LikeButton weshoutId= {weshoutId}/>
+                <CardActions>
+                    <div> 
+                <LikeButton weshoutId= {weshoutId}/>
         
                 <span>{likeCount}likes</span>
                 <CommentOnSimilarToAboutAPost postHandle={userHandle} postId={weshoutId} />
                 <span>{commentCount}comment  </span>
                 </div>
-                
                 <ABOUT_A_POST postHandle={userHandle}   postId = {weshoutId} />
+                
                 </CardActions> 
                 </Hidden>
                 
