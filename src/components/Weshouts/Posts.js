@@ -54,7 +54,10 @@ const useStyles = makeStyles(theme=>({
     },
     flexContentDiv:{
         
-    }
+    },
+    postBody: {
+        overflowWrap: 'break-word',
+    },
 
 }));
 
@@ -77,7 +80,7 @@ function Posts(props) {
                 <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
                 {deleteButton}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
-                <Typography variant="body1" >{body}</Typography>
+                <Typography variant="body1" className={classes.postBody} >{body}</Typography>
                 
                 
                  <Hidden smUp>   

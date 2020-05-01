@@ -1,5 +1,6 @@
 import React, {useState,Fragment} from 'react';
 import {Link} from 'react-router-dom';
+import myLogo from '../../Images/wewinglobeLogo.svg';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
@@ -40,6 +41,12 @@ const useStyles = makeStyles(theme=>({
     },
     pushAllIconsRight: {
         marginRight: 'auto',
+    },
+    logo:{
+        
+        boxSizing: 'border-box',
+        height: '80px',
+        paddingRight: '30px',
     }
 
     
@@ -63,7 +70,8 @@ function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authent
                     </Hidden>
                     <AddPost/>
                     
-                   <Hidden xsDown> <Link to='/'>
+                   <Hidden xsDown> <Link to='/home'>
+                    <img className={classes.logo} src={myLogo} alt="wewinglobe logo" />   
                     <Tooltip title="home" placement="top">
                     <IconButton>
                         <HomeIcon className={classes.afterAuthButton}/>
@@ -92,10 +100,11 @@ function Navbar({myTheme, setThemecontroller, themecontroller, imageUrl, authent
                     <Hidden smUp>
                     <AppBardrawer />
                     </Hidden> 
-                    <Hidden xsDown>  
-                    <Button color="inherit" component={Link} to="/">Home</Button>
+                    <Hidden xsDown>
+                    <img className={classes.logo} src={myLogo} alt="wewinglobe logo" />     
+                    <Button color="inherit" component={Link} to="/home">Home</Button>
                     <Button color="inherit" component={Link} to="/signup">Signup</Button>
-                    <Button color="inherit" component={Link} to="/login" className={classes.pushAllIconsRight}>login</Button>
+                    <Button color="inherit" component={Link} to="/" className={classes.pushAllIconsRight}>login</Button>
                     </Hidden>
                   {/* <Hidden smUp>
                     <Tooltip title="Home" placement="top">

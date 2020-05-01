@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme =>({
     textField: {
         margin: '2px auto 2px auto',
         width: '100%',
+        caretColor: theme.palette.primary.dark,
         [theme.breakpoints.down('xs')]:{
             width: '80%'
         }
@@ -208,7 +209,7 @@ function Signup(props) {
         <Button type="submit" className={classes.submitButton} variant="contained" color="primary" disabled={loading}>signup
         {loading &&(<CircularProgress className={classes.spinner}></CircularProgress>)}</Button>
         <br/>
-        <Typography variant="h6" color="textSecondary">Already have an account? <Link to='/login' className={classes.createAccount}>Login</Link></Typography>
+        <Typography variant="h6" color="textSecondary">Already have an account? <Link to='/' className={classes.createAccount}>Login</Link></Typography>
         </form>
       <NetworkErrorSnackBar snackBarControl= {networkError}/>
         </Grid> 

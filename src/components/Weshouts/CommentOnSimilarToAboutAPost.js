@@ -9,6 +9,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -41,6 +42,7 @@ const Styles = makeStyles(theme=>({
     },
     dialogContent: {
         padding: 20,
+        width: '100%'
     },
     closeButton:{
         position: 'absolute',
@@ -66,11 +68,13 @@ const Styles = makeStyles(theme=>({
     },
     accountCircle:{
         size: '30px',
+    },
+    contentDiv: {
+        width: '100%'
     }
 
 }));
-
-function CommentOnSimilarToAboutAPost(props) {
+const CommentOnSimilarToAboutAPost=React.memo((props)=>{
     const {postId, postHandle, authenticated,
         UI: {loading}, 
         data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body, comments }} }= props;
@@ -79,8 +83,15 @@ const classes = Styles();
 const [open, setOpen] = useState(false);
 const [oldPath,setOldPath] = useState("");
 const getOnePostFunction = props.getOnePost;
+//fuction to ensure things work on windows and IOS
+const controlUrlDisplay =(path)=>{
+ const pathToShow = window.history? window.history.pushState(null,null, path):this.history.pushState(null,null, path);
+ return pathToShow;
+};
+
 const handleOpen=useCallback(()=>{
- let oldWindowsPath = window.location.pathname;
+ let oldWindowsPath = window.location.pathname? window.location.pathname :  Location.pathname;
+ console.log(Location.pathname);
     setOldPath(oldWindowsPath);
  //how to make the url display different routes for different posts
 
@@ -88,15 +99,16 @@ const handleOpen=useCallback(()=>{
  if(oldWindowsPath === newPath){
     setOldPath(`/users/${postHandle}`);
  }
- window.history.pushState(null,null, newPath);
+ //window.history.pushState(null,null, newPath);
+ controlUrlDisplay(newPath);
  setOpen(true);
  getOnePostFunction(postId);
 },[getOnePostFunction,postId,postHandle]);
 const handleClose=()=>{
     setOpen(false);
-    window.history.pushState(null,null, oldPath);
+    //window.history.pushState(null,null, oldPath)
+    controlUrlDisplay(oldPath);
 };
-
 
 const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularProgress thickness={2} size={200}/></div>):(
 <Grid container spacing={4} justify="center">
@@ -104,13 +116,13 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
         <img src={userImage} alt="profile" className={classes.profileImage}/>
 
     </Grid>
-    <Grid item sm={7} xs={12}>
+    <Grid item sm={7} xs={12} className={classes.contentDiv}>
         <Tooltip title= "view profile" placement="top" >
-        <IconButton component={Link} to={`/users/${userHandle}`} >
+        <IconButton component={Link} to={`/users/${postHandle}`} >
             <AccountCircle className={classes.accountCircle} color="action"/>
         </IconButton>
         </Tooltip>
-        <Typography component={Link} to={`/users/${userHandle}`} color="primary" variant="h6" >
+        <Typography component={Link} to={`/users/${postHandle}`} color="primary" variant="h6" >
         @{userHandle} 
         </Typography>
         <hr className={classes.invinsibleSeparator} />
@@ -122,7 +134,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
             {body}
         </Typography>
 
-        <LikeButton weshoutId={weshoutId}/>
+        <LikeButton weshoutId={postId}/>
         <span>{likeCount}likes</span>
         <Tooltip title="comment" placement="top">
                     <IconButton>
@@ -133,7 +145,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
     </Grid>
     <hr className={classes.visibleSeparator} />
     <FormForComment weshoutId={weshoutId}/>
-    <Comment comments= {comments}/>
+   {comments &&<Comment comments= {comments}/>}
 
 </Grid>
 );
@@ -146,20 +158,21 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
                 <ChatIcon color="primary"/>
             </IconButton> 
             </Tooltip>):(<Tooltip title="comment" placement="top">
-            <IconButton component={Link} to={'/Login'} className={classes.showButton} >
+            <IconButton component={Link} to={'/'} className={classes.showButton} >
                 <ChatIcon color="primary"/>
             </IconButton> 
             </Tooltip>)}
             <Dialog open={open} onClose={()=>{
                 handleClose();
             }} fullWidth maxWidth="sm">
-            <Tooltip title="close" placement="top">
-            <IconButton onClick={()=>{
+            <DialogTitle>
+            <IconButton aria-label="close" onClick={()=>{
                 handleClose();
             } } className={classes.closeButton} >
                 <CloseIcon color="primary" />
-            </IconButton> 
-            </Tooltip>
+            </IconButton>
+            </DialogTitle> 
+        
             <DialogContent className={classes.dialogContent}>
             {dialogMarkUp}
             </DialogContent>
@@ -168,7 +181,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
 
         </Fragment>
     )
-}
+});
 const mapStateToProps = (state)=>({
 UI: state.UI,
 data: state.data,

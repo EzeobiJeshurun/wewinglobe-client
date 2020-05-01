@@ -23,7 +23,7 @@ export default function (state= initialState, actions){
          
         case SET_WESHOUTS:
             let currentPosts = actions.payload;
-             let allPosts = currentPosts.reverse();
+             let allPosts = currentPosts;
             return {
                 ...state,
                 weshouts: allPosts,
@@ -41,16 +41,18 @@ export default function (state= initialState, actions){
         case UNLIKE_WESHOUT:    
                 let index = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
                 state.weshouts[index] = actions.payload;
-                state.singlePost = actions.payload;
+                //state.singlePost = actions.payload;
                 return {
-                    ...state
+                    ...state,
+                    singlePost: {...state.singlePost, likeCount: actions.payload.likeCount}
                 };
        case LIKE_WESHOUT:  
             let indexOfLike = state.weshouts.findIndex(weshout=> weshout.weshoutId === actions.payload.weshoutId);
             state.weshouts[indexOfLike] = actions.payload;
-            state.singlePost = actions.payload;    
+           // state.singlePost = actions.payload;    
             return {
-                ...state
+                ...state,
+                singlePost: {...state.singlePost, likeCount: actions.payload.likeCount}
               };
 
         case   DELETE_WESHOUT:

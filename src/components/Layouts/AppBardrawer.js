@@ -72,7 +72,7 @@ function AppBardrawer(props) {
                 handleClose();
             }}>
             <List>
-             <ListItem component={Link} to={'/'}>
+             <ListItem component={Link} to={'/home'}>
                  <ListItemIcon><HomeIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Home"}/>
             </ListItem>
@@ -92,7 +92,7 @@ function AppBardrawer(props) {
                  <ListItemText primary={"Post"}/>
             </ListItem></Fragment>)}
               
-            {!authenticated &&(<Fragment><Divider/> <ListItem component={Link} to={'/Login'}>
+            {!authenticated &&(<Fragment><Divider/> <ListItem component={Link} to={'/'}>
                  <ListItemIcon><LoginIcon color="primary"/></ListItemIcon>
                  <ListItemText primary={"Login"}/>
             </ListItem></Fragment>)}

@@ -14,7 +14,7 @@ export const loginUser =(userData, history)=>(dispatch)=>{
           });
     
            // setLoading(false);
-           history.push('/');
+           history.push('/home');
          })
         .catch((err)=>{
             const checkNetwork = String(err.response);
@@ -63,7 +63,7 @@ export const signupUser =(newUserData, history)=>(dispatch)=>{
             type: CLEAR_ERRORS
           });
           
-           history.push('/');
+           history.push('/home');
          })
         .catch((err)=>{ 
     const checkNetwork = String(err.response);
@@ -110,6 +110,9 @@ export const getUserData=()=>(dispatch)=>{
 };
 
 export const logoutUser =()=>(dispatch)=>{
+    localStorage.removeItem('FBIdToken');
+    delete axios.defaults.headers.common['Authorization'];
+    dispatch({type: SET_UNAUTHENTICATED });
     localStorage.removeItem('FBIdToken');
     delete axios.defaults.headers.common['Authorization'];
     dispatch({type: SET_UNAUTHENTICATED });
@@ -211,4 +214,6 @@ export const openPostFromMenu =()=>(dispatch)=>{
         type: OPEN_POST_FROM_MENU,
     });
 };
+
+
 

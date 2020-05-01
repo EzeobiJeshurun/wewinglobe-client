@@ -47,6 +47,9 @@ const Styles = makeStyles(theme =>({
     spinner:{
         position: 'absolute',
     },
+    textField:{
+        caretColor: theme.palette.primary.dark,
+    }
 }));
 
 function AddPost(props) {

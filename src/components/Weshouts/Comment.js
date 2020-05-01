@@ -1,4 +1,4 @@
-import React,{ Fragment} from 'react';
+import React,{ Fragment,useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import {makeStyles} from '@material-ui/core';
@@ -31,11 +31,14 @@ const Styles = makeStyles(theme =>({
     breakLine: {
         marginBottom: 0,
         color: '#fa2345',
-    }
+    },
+    commentBody: {
+        overflowWrap: 'break-word',
+    },
 
 }));
 
-function Comment(props) {
+function Comment(props){
     const classes = Styles();
     const {comments} = props;
     return (
@@ -60,7 +63,7 @@ function Comment(props) {
                             </Typography>
                             {/*<hr className={classes.invisibleSeparator} />*/}
                             
-                            <Typography variant="body2" >
+                            <Typography variant="body2" className={classes.commentBody} >
                                 {body}
                             </Typography>
                             </div>
@@ -75,6 +78,6 @@ function Comment(props) {
             </Grid>
         </Fragment>
     )
-}
+};
 
 export default Comment;

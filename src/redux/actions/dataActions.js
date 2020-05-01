@@ -241,3 +241,7 @@ export const clearNetworkError = ()=>(dispatch)=>{
     dispatch({type: CLEAR_NETWORK_ERROR,});
 };
 
+export const moveToLogin=(history)=>{
+    history.push('/');
+};
+

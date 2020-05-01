@@ -17,6 +17,7 @@ const Styles = makeStyles(theme =>({
     },
     textField: {
         marginBottom: 5,
+        caretColor: theme.palette.primary.dark,
     },
     button: {
 

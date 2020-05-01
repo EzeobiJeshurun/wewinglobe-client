@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -17,10 +17,12 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import Favorite from '@material-ui/icons/Favorite';
 //redux 
 import {connect } from 'react-redux';
 //action functions
-import {getOnePost} from '../../redux/actions/dataActions';
+import {getOnePost,unlikeWeshout, likeWeshout} from '../../redux/actions/dataActions';
 //...
 import LikeButton from './LikeButton';
 import Comment from './Comment';
@@ -40,12 +42,13 @@ const Styles = makeStyles(theme=>({
     },
     dialogContent: {
         padding: 20,
+        width: '100%'
     },
     closeButton:{
         position: 'absolute',
         left: '90%',
         [theme.breakpoints.down('xs')]:{
-            left: '80%',
+            left: '70%',
         },
     },
     showButton: {
@@ -74,6 +77,7 @@ const Styles = makeStyles(theme=>({
            // position: 'absolute',
            // paddingLeft: '0',
        // }
+
         
         
         
@@ -93,21 +97,38 @@ const Styles = makeStyles(theme=>({
     accountCircle:{
         size: '30px',
     },
+    
+    contentDiv: {
+        width: '100%'
+    },
+    likeBut: {
+        [theme.breakpoints.between('700','1000')]:{
+            paddingLeft: '0px',
+        },
+        
+    }
 
 
 }));
 
-function ABOUT_A_POST(props) {
+const ABOUT_A_POST= React.memo((props) =>{
     const {postId, postHandle,
+        user: {likes, authenticated },
         UI: {loading}, 
         data :{singlePost:{createdAt, weshoutId, likeCount, commentCount,userImage,userHandle, body, comments }} }= props;
 const classes = Styles();
 
 const [open, setOpen] = useState(false);
 const [oldPath,setOldPath] = useState("");
+const controlUrlDisplay =(path)=>{
+    const pathToShow = window.history? window.history.pushState(null,null, path):this.history.pushState(null,null, path);
+    return pathToShow;
+   };
+
+
 const getOnePostFunction = props.getOnePost;
 const handleOpen=useCallback(()=>{
- let oldWindowsPath = window.location.pathname;
+ let oldWindowsPath = window.location.pathname?window.location.pathname: Location.pathname;
     setOldPath(oldWindowsPath);
  //how to make the url display different routes for different posts
 
@@ -115,13 +136,43 @@ const handleOpen=useCallback(()=>{
  if(oldWindowsPath === newPath){
     setOldPath(`/users/${postHandle}`);
  }
- window.history.pushState(null,null, newPath);
+ //window.history.pushState(null,null, newPath);
+ controlUrlDisplay(newPath);
  setOpen(true);
  getOnePostFunction(postId);
 },[getOnePostFunction,postId,postHandle]);
+//To handle like 
+let  likeCheck =()=>{
+    if(likes && likes.find(like => like.weshoutId === weshoutId)){
+        return true;
+    }else{
+        return false;
+    }
+    };
+
+let implementLike =()=>{
+    props.likeWeshout(weshoutId);
+}; 
+let implementUnlike =()=>{
+    props.unlikeWeshout(weshoutId);
+};
+let ForLikeButton = likeCheck() ?(<Fragment> {/*/begining of if the user is authenticad*/}
+   <Tooltip title="Undo like" placement="top">
+    <IconButton className={classes.likeBut} onClick={()=>{ implementUnlike()}}>
+        <Favorite className={classes.likeBut} color="primary"/>
+    </IconButton>
+   </Tooltip> </Fragment>):(<Fragment><Tooltip title="like" placement="top">
+    <IconButton className={classes.likeBut} onClick={()=>{ implementLike()}}>
+        <FavoriteBorder className={classes.likeBut} color="primary"/>
+    </IconButton>
+   </Tooltip> </Fragment>);
+
+
+//end of Handling like
 const handleClose=()=>{
     setOpen(false);
-    window.history.pushState(null,null, oldPath);
+   // window.history.pushState(null,null, oldPath);
+    controlUrlDisplay(oldPath);
 };
 
 
@@ -131,13 +182,13 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
         <img src={userImage} alt="profile" className={classes.profileImage}/>
 
     </Grid>
-    <Grid item sm={7} xs={12}>
+    <Grid item sm={7} xs={12} className={classes.contentDiv}>
         <Tooltip title= "view profile" placement="top" >
-        <IconButton component={Link} to={`/users/${userHandle}`} >
+        <IconButton component={Link} to={`/users/${postHandle}`} >
             <AccountCircle className={classes.accountCircle} color="action"/>
         </IconButton>
         </Tooltip>
-        <Typography component={Link} to={`/users/${userHandle}`} color="primary" variant="h6" >
+        <Typography component={Link} to={`/users/${postHandle}`} color="primary" variant="h6" >
         @{userHandle} 
         </Typography>
         <hr className={classes.invinsibleSeparator} />
@@ -148,8 +199,11 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
         <Typography variant="body1">
             {body}
         </Typography>
-
-        <LikeButton weshoutId={weshoutId}/>
+        {/* I made the button bellow unclickable with pointerEvents:none , I need to make it work*/}
+        
+        {/*<LikeButton clatssName={classes.preventClickToLike} weshoutId={postId}/>*/}
+        {ForLikeButton}
+    
         <span>{likeCount}likes</span>
         <Tooltip title="comment" placement="top">
                     <IconButton>
@@ -160,7 +214,7 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
     </Grid>
     <hr className={classes.visibleSeparator} />
     <FormForComment weshoutId={weshoutId}/>
-    <Comment comments= {comments}/>
+   {comments && <Comment comments= {comments}/>}
 
 </Grid>
 );
@@ -177,29 +231,35 @@ const dialogMarkUp = loading ? ( <div className={classes.spinnerDiv}><CircularPr
             <Dialog open={open} onClose={()=>{
                 handleClose();
             }} fullWidth maxWidth="sm">
-            <Tooltip title="close" placement="top">
-            <IconButton onClick={()=>{
+            <DialogTitle>   
+            
+            <IconButton aria-label="close" onClick={()=>{
                 handleClose();
-            } } className={classes.closeButton} >
-                <CloseIcon color="primary" />
-            </IconButton> 
-            </Tooltip>
+            } } className={classes.closeButton}  color="secondary">
+                <CloseIcon color="secondary" />
+            </IconButton>
+            </DialogTitle> 
+            
             <DialogContent className={classes.dialogContent}>
             {dialogMarkUp}
+            
             </DialogContent>
 
             </Dialog>
             </div>
         </Fragment>
     )
-}
+});
 const mapStateToProps = (state)=>({
 UI: state.UI,
 data: state.data,
+user: state.user
 });
 
 const mapActionsToProp= {
   getOnePost,
+  unlikeWeshout, 
+  likeWeshout
 };
 
 export default connect(mapStateToProps, mapActionsToProp)(ABOUT_A_POST);

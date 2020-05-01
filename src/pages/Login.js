@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
-import wewinglobe from '../Images/wewinglobe.png';
+import wewinglobe from '../Images/wewinglobe.svg';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -14,9 +14,11 @@ import {connect} from 'react-redux';
 import NetworkErrorSnackBar from '../components/Weshouts/NetworkErrorSnackBar';
 
 
+
 const useStyles = makeStyles(theme =>({
     form: {
      textAlign: 'center',
+     
      
     },
     pageTitle:{
@@ -24,9 +26,11 @@ const useStyles = makeStyles(theme =>({
         margin: '5px auto 5px auto'
     },
     image:{
-        margin: '20px auto 20px auto'
+        margin: '20px 0px 20px 0px',
+        width: '100%'
     },
     textField: {
+        caretColor: theme.palette.primary.dark,
         margin: '2px auto 2px auto',
         width: '100%',
         [theme.breakpoints.down('xs')]:{
@@ -140,7 +144,7 @@ function Login(props) {
     
 
     const classes = useStyles();
-    return (
+    return ( 
         <Grid container className={classes.form} spacing={0}>
          <Grid item sm/>   
          <Grid item sm>
@@ -170,7 +174,7 @@ function Login(props) {
         <br/>
         <Typography variant="h6" color="textSecondary">Don't have an account? <Link to='/Signup' className={classes.createAccount}>signup</Link></Typography>
         </form>
-        <NetworkErrorSnackBar  snackBarControl={networkError} />
+       <NetworkErrorSnackBar  snackBarControl={networkError} />
         </Grid> 
         <Grid item sm/>  
         </Grid>

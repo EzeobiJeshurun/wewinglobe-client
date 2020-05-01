@@ -6,7 +6,7 @@ function AuthRoute({component: Component, authenticated, ...rest}) {
     
     return (
         <Route 
-        {...rest} render={(props)=> authenticated === true ? <Redirect to='/'/> : <Component {...props}/> } />
+        {...rest} render={(props)=> authenticated === true ? <Redirect to='/home'/> : <Component {...props}/> } />
     )
 }
 

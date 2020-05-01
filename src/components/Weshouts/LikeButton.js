@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme=>({
 
 
 
-function LikeButton(props) {
+const LikeButton=React.memo((props)=> {
     const {weshoutId, user: {likes, authenticated}}= props;
     const classes= useStyles();
     let  likeCheck =()=>{
@@ -40,7 +40,7 @@ function LikeButton(props) {
     
     let ForLikeButton = !authenticated? ( 
         <Tooltip title="like" placement="top">
-        <Link to='/Login'>   
+        <Link to='/'>   
         <IconButton className={classes.likeBut}>
             
             <FavoriteBorder className={classes.likeBut} color="primary"/>
@@ -59,7 +59,7 @@ function LikeButton(props) {
        </Tooltip>));
     
     return ForLikeButton;
-}
+});
 const mapStateToProps=(state)=>({
     user: state.user,
 });

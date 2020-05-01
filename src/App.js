@@ -134,8 +134,8 @@ const myTheme =()=>{
       <Navbar myTheme={myTheme} setThemecontroller={setThemecontroller} themecontroller={themecontroller}/>
         <div className="container">
         <Switch>
-          <Route exact path="/" component={Home} />
-          <AuthRoute exact path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
+          <AuthRoute exact path="/" component={Login} />
           <AuthRoute exact path="/signup" component={Signup} />
           <Route exact path="/changePassword" component={ChangePassword}/>
           <Route exact path="/users/:handle" component= {USER} />
